@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">WorkingHours</string>
+    <string name="projectOne">My Project One</string>
+    <string name="projectTwo">My Project Two</string>
+    <string name="projectThree">My Project One</string>
+    <string name="activity1">Design</string>
+    <string name="activity2">Searching</string>
+    <string name="activity3">Coding</string>
+</resources>
