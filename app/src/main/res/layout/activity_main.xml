@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".ui.MainActivity">
 
     <LinearLayout
         android:id="@+id/projectsList"
@@ -37,4 +37,24 @@
             android:text="@string/projectThree"
             android:textSize="24sp" />
     </LinearLayout>
+
+    <EditText
+        android:id="@+id/addNewProjectName"
+        android:layout_width="252dp"
+        android:layout_height="47dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="@string/addNewProjectName"
+        tools:layout_editor_absoluteX="31dp"
+        tools:layout_editor_absoluteY="204dp" />
+
+    <Button
+        android:id="@+id/button_Add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:text="@string/button_Add"
+        app:layout_constraintStart_toEndOf="@+id/addNewProjectName"
+        tools:layout_editor_absoluteY="203dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

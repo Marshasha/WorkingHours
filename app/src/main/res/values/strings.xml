@@ -1,9 +1,17 @@
 <resources>
     <string name="app_name">WorkingHours</string>
+    <string name="initTime">00:00:00</string>
+    <string name="button_start">Start</string>
+    <string name="button_pause">Pause</string>
+    <string name="textView_projectToTrack">Project chosen</string>
     <string name="projectOne">My Project One</string>
     <string name="projectTwo">My Project Two</string>
     <string name="projectThree">My Project One</string>
     <string name="activity1">Design</string>
     <string name="activity2">Searching</string>
     <string name="activity3">Coding</string>
+    <string name="button_Save">Save</string>
+    <string name="button_Add">Add</string>
+    <string name="addNewProjectName">Add new Project</string>
+
 </resources>
