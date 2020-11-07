@@ -22,5 +22,21 @@
     <string name="button_Save">Save</string>
     <string name="button_Add">Add</string>
     <string name="addNewProjectName">Add new Project</string>
+    <string name="prompt_email">email</string>
+    <string name="prompt_password">password</string>
+
+    <string name="action_sign_in">Sign in</string>
+    <string name="action_register">Register</string>
+    <string name="title_activity_login">Login</string>
+    <string name="client_repeat_password">Repeat password</string>
+    <string name="user_created">User created</string>
+    <string name="error_invalid_password">Password must have 5 characters</string>
+    <string name="error_invalid_email">Please check your email</string>
+    <string name="error_used_email">You are not registered yet</string>
+    <string name="action_demo_data">Build demo data</string>
+    <string name="error_field_required">Please enter email</string>
+    <string name="error_incorrect_password">Password is not valid</string>
+    <string name="reset_msg">Reset Data</string>
+    <string name="action_reset">The data was created</string>
 
 </resources>
