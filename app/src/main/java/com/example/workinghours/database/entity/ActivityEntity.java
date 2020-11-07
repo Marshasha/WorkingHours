@@ -10,7 +10,7 @@ import androidx.room.PrimaryKey;
 import java.util.Date;
 
 @Entity(tableName="activities", foreignKeys=@ForeignKey(entity=ProjectEntity.class,
-                                            parentColumns="projectName",
+                                            parentColumns="id",
                                             childColumns="owner",
                                             onDelete = ForeignKey.CASCADE),
                                             indices = {@Index(value = {"owner"})})
@@ -22,11 +22,11 @@ public class ActivityEntity {
     public Date dateStart;
     public Date dateFinish;
     public String duration;
-    public String owner;
+    public long owner;
 
     public ActivityEntity(){}
 
-    public ActivityEntity(@NonNull String activityName, Date dateStart, Date dateFinish, String owner) {
+    public ActivityEntity(@NonNull String activityName, Date dateStart, Date dateFinish, long owner) {
         this.activityName = activityName;
         this.dateStart=dateStart;
         this.dateFinish=dateFinish;
@@ -92,11 +92,11 @@ public class ActivityEntity {
         this.dateFinish=finish;
     }
 
-    public String getOwner(){
+    public long getOwner(){
         return owner;
     }
 
-    public void setOwner(String ownerName){
+    public void setOwner(long ownerName){
         this.owner=ownerName;
     }
 

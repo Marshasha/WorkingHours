@@ -23,6 +23,9 @@ import androidx.room.PrimaryKey;
 )
 public class ProjectEntity {
 
+    @PrimaryKey(autoGenerate = true)
+    private long id;
+
     @ColumnInfo(name = "projectName")
     @NonNull
     private String projectName;

@@ -17,28 +17,24 @@
             android:id="@+id/textView_ProjectNameEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"
             android:textSize="24sp" />
 
         <TextView
             android:id="@+id/textView_DateEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView"  <!-- here is the date from dataBase-->
             android:textSize="24sp" />
 
         <TextView
             android:id="@+id/textView_timeSpentEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" <!-- here is the time from dataBase-->
             android:textSize="24sp" />
 
         <TextView
             android:id="@+id/textView_ActivitynameEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" <!-- here is the activity name from dataBase-->
             android:textSize="24sp" />
 
         <Button
