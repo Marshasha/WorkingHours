@@ -1,28 +1,29 @@
-package com.example.workinghours.database.async.project;
+package com.example.workinghours.database.async.users;
 
 import android.app.Application;
 import android.os.AsyncTask;
 
 import com.example.workinghours.database.entity.ProjectEntity;
 import com.example.workinghours.database.entity.UserEntity;
+import com.example.workinghours.database.repository.UserRepository;
 import com.example.workinghours.util.OnAsyncEventListener;
 import com.example.workinghours.viewmodel.BaseApp;
 
-public class CreateProject extends AsyncTask<ProjectEntity, Void, Void> {
+public class UpdateUser extends AsyncTask<UserEntity, Void, Void> {
 
     private Application application;
     private OnAsyncEventListener callback;
     private Exception exception;
 
-    public CreateProject(Application app, OnAsyncEventListener listener){
+    public UpdateUser(Application app, OnAsyncEventListener listener){
         this.application=app;
         this.callback=listener;
     }
 
-    public Void doInBackground(ProjectEntity...params){
+    protected Void doInBackground(UserEntity...params){
         try{
-            for(ProjectEntity project : params)
-                ((BaseApp) application).getDatabase().projectDao().insert(project);
+            for(UserEntity user : params)
+                ((BaseApp) application).getDatabase().userDao().update(user);
 
         }catch(Exception e){
             exception = e;
@@ -40,6 +41,4 @@ public class CreateProject extends AsyncTask<ProjectEntity, Void, Void> {
             }
         }
     }
-
-
 }

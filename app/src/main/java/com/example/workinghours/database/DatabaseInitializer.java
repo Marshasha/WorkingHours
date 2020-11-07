@@ -5,6 +5,7 @@ import android.util.Log;
 
 import com.example.workinghours.database.entity.ActivityEntity;
 import com.example.workinghours.database.entity.ProjectEntity;
+import com.example.workinghours.database.entity.UserEntity;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -20,8 +21,13 @@ public class DatabaseInitializer {
         task.execute();
     }
 
-    private static void addProject(final AppDataBase db, final String projectName) {
-        ProjectEntity project = new ProjectEntity(projectName);
+    private static void addUser(final AppDataBase db, final String email, final String password) {
+        UserEntity user = new UserEntity(email, password);
+        db.userDao().insert(user);
+    }
+
+    private static void addProject(final AppDataBase db, final String projectName, final String user) {
+        ProjectEntity project = new ProjectEntity(projectName, user);
         db.projectDao().insert(project);
     }
 
@@ -32,14 +38,16 @@ public class DatabaseInitializer {
     }
 
     private static void populateWithTestData(AppDataBase db) throws ParseException {
-        db.projectDao().deleteAll();
+        db.userDao().deleteAll();
+
+        addUser(db, "marina@gmail.com", "123");
 
         addProject(db,
-                "myFirstProject");
+                "myFirstProject", "marina@gmail.com");
         addProject(db,
-                "mySecondProject");
+                "mySecondProject", "marina@gmail.com" );
         addProject(db,
-                "myThirdProject");
+                "myThirdProject", "marina@gmail.com");
 
         try {
             // Let's ensure that the projects are already stored in the database before we continue.

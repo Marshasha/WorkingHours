@@ -13,6 +13,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 
 import com.example.workinghours.database.dao.ActivityDao;
 import com.example.workinghours.database.dao.ProjectDao;
+import com.example.workinghours.database.dao.UserDao;
 import com.example.workinghours.database.entity.ActivityEntity;
 import com.example.workinghours.database.entity.ProjectEntity;
 
@@ -26,6 +27,8 @@ public abstract class AppDataBase extends RoomDatabase {
     private static AppDataBase instance;
 
     private static final String DATABASE_NAME = "projects-database";
+
+    public abstract UserDao userDao();
 
     public abstract ActivityDao activityDao();
 

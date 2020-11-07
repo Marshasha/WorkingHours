@@ -11,12 +11,14 @@ import androidx.room.Update;
 
 import com.example.workinghours.database.entity.ProjectEntity;
 
-// How to check unique name of the project???
 
 import java.util.List;
 
 @Dao
 public interface ProjectDao {
+
+    @Query("SELECT * FROM projects WHERE user = :user")
+    public abstract LiveData<List<ProjectEntity>> getProjectsByUser(String user);
 
     @Query("SELECT * FROM projects")
     LiveData<List<ProjectEntity>> getAll();
