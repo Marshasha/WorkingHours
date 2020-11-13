@@ -1,6 +1,7 @@
 package com.example.workinghours.adapter;
 
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
@@ -26,9 +27,16 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
     static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
         TextView textView;
-        ViewHolder(TextView textView) {
-            super(textView);
-            this.textView = textView;
+        ViewHolder(@NonNull View itemView, RecyclerViewItemClickListener listener) {
+            super(itemView);
+            this.textView = itemView.findViewById(R.id.ItemName);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onItemClick((String) textView.getText());
+                }
+            });
         }
     }
 
@@ -39,15 +47,9 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
     @Override
     public RecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
-        TextView v = (TextView) LayoutInflater.from(parent.getContext())
+        View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recycler_view, parent, false);
-        final ViewHolder viewHolder = new ViewHolder(v);
-        v.setOnClickListener(view -> listener.onItemClick(view, viewHolder.getAdapterPosition()));
-        v.setOnLongClickListener(view -> {
-            listener.onItemLongClick(view, viewHolder.getAdapterPosition());
-            return true;
-        });
-        return viewHolder;
+        return new ViewHolder(v, listener);
     }
 
     @Override

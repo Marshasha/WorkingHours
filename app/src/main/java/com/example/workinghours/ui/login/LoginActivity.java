@@ -15,10 +15,13 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.workinghours.R;
+import com.example.workinghours.database.AppDataBase;
 import com.example.workinghours.database.repository.UserRepository;
 import com.example.workinghours.ui.BaseActivity;
 import com.example.workinghours.ui.MainActivity;
 import com.example.workinghours.viewmodel.BaseApp;
+
+import static com.example.workinghours.database.AppDataBase.initializeDemoData;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -151,7 +154,7 @@ public class LoginActivity extends AppCompatActivity {
         alertDialog.setCancelable(false);
         alertDialog.setMessage(getString(R.string.reset_msg));
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.action_reset), (dialog, which) ->{
-            initializeDemoData(AppDatabase.getInstance(this)); // to find out how !!!!!!!!!!!!!!!!!!!!!!!!!
+            initializeDemoData(AppDataBase.getInstance(this)); // to find out how !!!!!!!!!!!!!!!!!!!!!!!!!
             Toast.makeText(this, getString(R.string.demo_data_initiated), Toast.LENGTH_LONG).show();
         });
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.action_cancel), (dialog, which) -> alertDialog.dismiss());

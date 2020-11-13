@@ -23,11 +23,11 @@ public interface ProjectDao {
     @Query("SELECT * FROM projects")
     LiveData<List<ProjectEntity>> getAll();
 
-    @Query("SELECT projectName FROM projects")
-    LiveData<ProjectEntity> getByName(String projectName);
+    @Query("SELECT * FROM projects WHERE projectName = :name")
+    LiveData<ProjectEntity> getByName(String name);
 
     @Insert
-    String insert(ProjectEntity project) throws SQLiteConstraintException;
+    long insert(ProjectEntity project) throws SQLiteConstraintException;
 
     @Update
     void update(ProjectEntity project);

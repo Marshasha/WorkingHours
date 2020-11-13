@@ -23,7 +23,7 @@ public abstract class ActivityDao {
         public abstract LiveData<ActivityEntity> getActivityById(int id);
 
         @Insert
-        public abstract String insert (ActivityEntity activity);
+        public abstract void insert (ActivityEntity activity);
 
         @Update
         public abstract void update (ActivityEntity activity);

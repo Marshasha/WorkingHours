@@ -3,6 +3,7 @@ package com.example.workinghours.database.dao;
 import android.database.sqlite.SQLiteConstraintException;
 
 import androidx.lifecycle.LiveData;
+import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -13,6 +14,7 @@ import com.example.workinghours.database.entity.UserEntity;
 
 import java.util.List;
 
+@Dao
 public interface UserDao {
     @Query("SELECT * FROM users WHERE email = :id")
     LiveData<UserEntity> getById(String id);

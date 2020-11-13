@@ -16,10 +16,11 @@ import com.example.workinghours.database.dao.ProjectDao;
 import com.example.workinghours.database.dao.UserDao;
 import com.example.workinghours.database.entity.ActivityEntity;
 import com.example.workinghours.database.entity.ProjectEntity;
+import com.example.workinghours.database.entity.UserEntity;
 
 import java.util.concurrent.Executors;
 
-@Database(entities = {ActivityEntity.class, ProjectEntity.class}, version = 1)
+@Database(entities = {UserEntity.class, ActivityEntity.class, ProjectEntity.class}, version = 1)
 public abstract class AppDataBase extends RoomDatabase {
 
     private static final String TAG = "AppDataBase";

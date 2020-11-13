@@ -1,11 +1,13 @@
 package com.example.workinghours.database.entity;
 
 import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
+import androidx.room.TypeConverters;
+
+import com.example.workinghours.database.converters.DateConverter;
 
 import java.util.Date;
 
@@ -19,14 +21,16 @@ public class ActivityEntity {
     @PrimaryKey(autoGenerate = true)
     public int activityId;
     public String activityName;
+    @TypeConverters({DateConverter.class})
     public Date dateStart;
+    @TypeConverters({DateConverter.class})
     public Date dateFinish;
     public String duration;
-    public long owner;
+    public String owner;
 
     public ActivityEntity(){}
 
-    public ActivityEntity(@NonNull String activityName, Date dateStart, Date dateFinish, long owner) {
+    public ActivityEntity(@NonNull String activityName, Date dateStart, Date dateFinish, String owner) {
         this.activityName = activityName;
         this.dateStart=dateStart;
         this.dateFinish=dateFinish;
@@ -92,11 +96,11 @@ public class ActivityEntity {
         this.dateFinish=finish;
     }
 
-    public long getOwner(){
+    public String getOwner(){
         return owner;
     }
 
-    public void setOwner(long ownerName){
+    public void setOwner(String ownerName){
         this.owner=ownerName;
     }
 

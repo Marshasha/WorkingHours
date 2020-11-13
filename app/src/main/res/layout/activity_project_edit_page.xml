@@ -1,41 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activityDataLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginTop="16dp"
+    android:orientation="vertical"
     tools:context=".ui.ProjectEditPage">
 
-    <LinearLayout
-        android:layout_width="409dp"
-        android:layout_height="729dp"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp">
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <TextView
+        <EditText
             android:id="@+id/textView_ProjectNameEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="24sp" />
+            android:ems="10"
+            android:hint="@string/editProjectName"
+            android:focusable="false"
+            android:enabled="false"/>
 
-        <TextView
-            android:id="@+id/textView_DateEdit"
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <View
+        android:id="@+id/view"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginBottom="12dp"
+        android:layout_marginTop="12dp"
+        android:background="@android:color/darker_gray" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <EditText
+            android:id="@+id/textView_DateStartEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="24sp" />
+            android:ems="10"
+            android:hint="@string/editDay"
+            android:focusable="false"
+            android:enabled="false" />
 
-        <TextView
-            android:id="@+id/textView_timeSpentEdit"
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/textView_DateEndEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="24sp" />
+            android:ems="10"
+            android:hint="@string/editDay"
+            android:focusable="false"
+            android:enabled="false" />
 
-        <TextView
-            android:id="@+id/textView_ActivitynameEdit"
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:id="@+id/textView_ActivityNameEdit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="24sp" />
+            android:ems="10"
+            android:hint="@string/editActivityName"
+            android:focusable="false"
+            android:enabled="false" />
+    </com.google.android.material.textfield.TextInputLayout>
 
         <Button
             android:id="@+id/button_Save"
@@ -43,5 +83,5 @@
             android:layout_height="wrap_content"
             android:text="@string/button_Save"
             android:textSize="24sp" />
-    </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

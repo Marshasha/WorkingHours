@@ -1,5 +1,7 @@
 package com.example.workinghours.ui;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -38,6 +40,7 @@ public class ProjectDetails extends AppCompatActivity {
         //Toolbar toolbar = findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
 
+        /** тут ты получаешь то имя проекта, что кладется в static void start*/
         String projectName = getIntent().getStringExtra("projectName");
 
         //  initiateView();
@@ -51,5 +54,14 @@ public class ProjectDetails extends AppCompatActivity {
             }
         }); */
 
+    }
+
+    public static void start(Activity activity, String project){
+        /** внутренний статик метод для старта активити.
+        На вход строка project - название проекта, для которого нужны элементы из бд */
+        Intent intent = new Intent();
+        intent.setClass(activity, ProjectDetails.class);
+        intent.putExtra("projectName", project);
+        activity.startActivity(intent);
     }
 }

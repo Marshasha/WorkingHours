@@ -80,4 +80,8 @@ public class ActivityViewModel extends AndroidViewModel {
     public void updateActivity(ActivityEntity activity, OnAsyncEventListener callback) {
         repository.update(activity, callback, application);
     }
+
+    public void deleteActivity(ActivityEntity activity, OnAsyncEventListener callback) {
+        repository.delete(activity, callback, application);
+    }
 }

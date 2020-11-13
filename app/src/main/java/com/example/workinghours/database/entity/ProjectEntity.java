@@ -29,7 +29,7 @@ public class ProjectEntity {
     @ColumnInfo(name = "projectName")
     @NonNull
     private String projectName;
-    public String user;
+    private String user;
 
     @Ignore
     public ProjectEntity() {
@@ -41,12 +41,29 @@ public class ProjectEntity {
         this.user=user;
     }
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    @NonNull
     public String getProjectName() {
         return projectName;
     }
 
     public void setProjectName(@NonNull String projectName) {
         this.projectName = projectName;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 
     @Override
