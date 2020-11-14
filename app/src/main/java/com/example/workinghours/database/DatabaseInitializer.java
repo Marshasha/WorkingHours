@@ -32,8 +32,8 @@ public class DatabaseInitializer {
     }
 
     private static void addActivity(final AppDataBase db, final String name, final Date start, final Date finish,
-                                   final String owner) {
-        ActivityEntity activity = new ActivityEntity(name, start, finish, owner);
+                                   final String projectName) {
+        ActivityEntity activity = new ActivityEntity(name, start, finish, projectName);
         db.activityDao().insert(activity);
     }
 

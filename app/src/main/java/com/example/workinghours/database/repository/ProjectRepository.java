@@ -32,8 +32,12 @@ public class ProjectRepository {
         return instance;
     }
 
-    public LiveData<ProjectEntity> getProject(final String projectName, Application app) {
+    public LiveData<ProjectEntity> getProjectByName(final String projectName, Application app) {
         return ((BaseApp) app).getDatabase().projectDao().getByName(projectName);
+    }
+
+    public LiveData<ProjectEntity> getProjectById(final Long id, Application app){
+        return ((BaseApp)app).getDatabase().projectDao().getById(id);
     }
 
     public LiveData<List<ProjectEntity>> getAllProjects(Context context) {

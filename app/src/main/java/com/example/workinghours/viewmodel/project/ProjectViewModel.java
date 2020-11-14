@@ -23,8 +23,8 @@ public class ProjectViewModel extends AndroidViewModel {
     // MediatorLiveData can observe other LiveData objects and react on their emissions.
     private final MediatorLiveData<ProjectEntity> observableProject;
 
-    public ProjectViewModel(@NonNull Application application,
-                           final String projectName, ProjectRepository projectRepository) {
+    public ProjectViewModel(@NonNull Application application, final Long projectId,
+                            ProjectRepository projectRepository) {
         super(application);
 
         this.application = application;
@@ -35,7 +35,7 @@ public class ProjectViewModel extends AndroidViewModel {
         // set by default null, until we get data from the database.
         observableProject.setValue(null);
 
-        LiveData<ProjectEntity> project = repository.getProject(projectName, application);
+        LiveData<ProjectEntity> project = repository.getProjectById(projectId, application);
 
         // observe the changes of the project entity from the database and forward them
         observableProject.addSource(project, observableProject::setValue);
@@ -49,20 +49,20 @@ public class ProjectViewModel extends AndroidViewModel {
         @NonNull
         private final Application application;
 
-        private final String projectName;
+        private final Long projectId;
 
         private final ProjectRepository repository;
 
-        public Factory(@NonNull Application application, String projectName) {
+        public Factory(@NonNull Application application, Long id) {
             this.application = application;
-            this.projectName = projectName;
+            this.projectId = id;
             repository = ((BaseApp) application).getProjectRepository();
         }
 
         @Override
         public <T extends ViewModel> T create(Class<T> modelClass) {
             //noinspection unchecked
-            return (T) new ProjectViewModel(application, projectName, repository);
+            return (T) new ProjectViewModel(application, projectId, repository);
         }
     }
 

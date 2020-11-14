@@ -70,4 +70,8 @@ public class ProjectEntity {
     public String toString() {
         return  projectName;
     }
+
+    public void setName(String projectName) {
+        this.projectName=projectName;
+    }
 }

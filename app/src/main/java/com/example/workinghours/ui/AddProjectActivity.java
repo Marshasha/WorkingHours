@@ -91,7 +91,7 @@ public class AddProjectActivity extends BaseActivity {
 
         FloatingActionButton fab = findViewById(R.id.floatingActionButton);
         fab.setOnClickListener(view -> {
-            Intent intent = new Intent(AddProjectActivity.this, ProjectEditPage.class);
+            Intent intent = new Intent(AddProjectActivity.this, AddProjectPage.class);
             intent.setFlags(
                     Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_NO_HISTORY
             );

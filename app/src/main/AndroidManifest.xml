@@ -47,12 +47,21 @@
         </activity>
         <activity
             android:name=".ui.AddProjectActivity"
-            android:label="@string/title_add_new_project"
-            android:parentActivityName=".ui.BaseActivity">
-
+            android:label="@string/addNewProjectName"
+            android:parentActivityName=".ui.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.workinghours.ui.MainActivity" />
+        </activity>
+        <activity
+            android:name=".ui.AddProjectPage"
+            android:label="@string/addNewProjectName"
+            android:parentActivityName=".ui.AddProjectActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.example.workinghours.ui.AddProjectActivity" />
         </activity>
         <activity
             android:name=".ui.ProjectDetails"

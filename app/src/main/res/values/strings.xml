@@ -69,6 +69,12 @@
     <string name="action_accept">Execute</string>
     <string name="project_deleted">Project deleted</string>
     <string name="title_edit_activity">Edit activity</string>
+    <string name="prompt_project_name">Name your project</string>
+    <string name="project_create">Create project</string>
+    <string name="project_created">Project created</string>
+    <string name="title_project_edit">Edit project name</string>
+    <string name="save_changes">Save changes</string>
+    <string name="project_edited">Project name edited</string>
 
 
 </resources>

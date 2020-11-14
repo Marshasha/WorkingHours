@@ -37,4 +37,7 @@ public interface ProjectDao {
 
     @Query("DELETE FROM projects")
     void deleteAll();
+
+    @Query("SELECT * FROM projects WHERE id = :id")
+    LiveData<ProjectEntity> getById(Long id);
 }
