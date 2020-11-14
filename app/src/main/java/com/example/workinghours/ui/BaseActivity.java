@@ -16,6 +16,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.workinghours.R;
 import com.example.workinghours.ui.login.LoginActivity;
+import com.example.workinghours.ui.login.SettingsActivity;
 import com.google.android.material.navigation.NavigationView;
 
 public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {

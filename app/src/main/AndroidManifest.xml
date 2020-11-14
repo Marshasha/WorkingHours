@@ -46,6 +46,15 @@
                 android:value="com.example.workinghours.ui.login.LoginActivity" />
         </activity>
         <activity
+            android:name=".ui.AddProjectActivity"
+            android:label="@string/title_add_new_project"
+            android:parentActivityName=".ui.BaseActivity">
+
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.workinghours.ui.MainActivity" />
+        </activity>
+        <activity
             android:name=".ui.ProjectDetails"
             android:label="@string/title_my_projects"
             android:parentActivityName=".ui.MainActivity"
@@ -53,6 +62,14 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.workinghours.ui.MainActivity" />
+        </activity>
+        <activity
+            android:name=".ui.ProjectEditPage"
+            android:label="@string/title_edit_activity"
+            android:parentActivityName=".ui.ProjectDetails">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.workinghours.ui.ProjectDetails" />
         </activity>
 
         <activity
