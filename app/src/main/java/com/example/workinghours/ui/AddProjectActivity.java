@@ -1,5 +1,6 @@
 package com.example.workinghours.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.workinghours.R;
 import com.example.workinghours.adapter.RecyclerAdapter;
 import com.example.workinghours.database.entity.ProjectEntity;
+import com.example.workinghours.util.OnAsyncEventListener;
 import com.example.workinghours.util.RecyclerViewItemClickListener;
 import com.example.workinghours.viewmodel.project.ProjectListViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -58,6 +60,12 @@ public class AddProjectActivity extends BaseActivity {
 
         projects = new ArrayList<>();
         adapter = new RecyclerAdapter<>(new RecyclerViewItemClickListener() {
+
+            @Override
+            public void onItemClick(String text) {
+
+            } // how to get rid of it???
+
             @Override
             public void onItemClick(View v, int position) {
                 Log.d(TAG, "clicked position:" + position);
@@ -115,6 +123,7 @@ public class AddProjectActivity extends BaseActivity {
         return super.onNavigationItemSelected(item);
     }
 
+    @SuppressLint("StringFormatInvalid")
     private void createDeleteDialog(final int position) {
         final ProjectEntity project = projects.get(position);
         LayoutInflater inflater = LayoutInflater.from(this);
@@ -124,11 +133,11 @@ public class AddProjectActivity extends BaseActivity {
         alertDialog.setCancelable(false);
 
         final TextView deleteMessage = view.findViewById(R.id.tv_delete_item);
-        deleteMessage.setText(getString(R.string.project_delete_msg), project.getProjectName());
+        deleteMessage.setText(String.format(getString(R.string.project_delete_msg), project.getProjectName()));
 
         alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.action_accept), (dialog, which) -> {
-            Toast toast = Toast.makeText(this, getString(R.string.account_deleted), Toast.LENGTH_LONG);
-            viewModel.deleteAccount(account, new OnAsyncEventListener() {
+            Toast toast = Toast.makeText(this, getString(R.string.project_deleted), Toast.LENGTH_LONG);
+            viewModel.deleteProject(project, new OnAsyncEventListener() {
                 @Override
                 public void onSuccess() {
                     Log.d(TAG, "deleteAccount: success");

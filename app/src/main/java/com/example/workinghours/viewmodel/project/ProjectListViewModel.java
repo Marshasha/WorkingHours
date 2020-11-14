@@ -14,6 +14,7 @@ import com.example.workinghours.BaseApp;
 import com.example.workinghours.database.entity.ProjectEntity;
 import com.example.workinghours.database.repository.ProjectRepository;
 import com.example.workinghours.database.repository.UserRepository;
+import com.example.workinghours.util.OnAsyncEventListener;
 
 import java.util.List;
 
@@ -74,6 +75,10 @@ public class ProjectListViewModel extends AndroidViewModel {
             //noinspection unchecked
             return (T) new ProjectListViewModel(application, projectRepository);
         }
+    }
+
+    public void deleteProject(ProjectEntity project, OnAsyncEventListener callback){
+        repository.delete(project, callback, application);
     }
 
     /**

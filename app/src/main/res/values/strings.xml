@@ -66,6 +66,8 @@
     <string name="title_main_activity">My projects list</string>
     <string name="title_project_delete">Delete project</string>
     <string name="project_delete_msg">Do you want to delete this project?</string>
+    <string name="action_accept">Execute</string>
+    <string name="project_deleted">Project deleted</string>
 
 
 </resources>
