@@ -1,4 +1,4 @@
-package com.example.workinghours.viewmodel;
+package com.example.workinghours;
 
 import android.app.Application;
 

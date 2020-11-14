@@ -1,7 +1,6 @@
 package com.example.workinghours.database.repository;
 
 import android.app.Application;
-import android.util.Pair;
 
 import androidx.lifecycle.LiveData;
 
@@ -10,7 +9,7 @@ import com.example.workinghours.database.async.activity.DeleteActivity;
 import com.example.workinghours.database.async.activity.UpdateActivity;
 import com.example.workinghours.database.entity.ActivityEntity;
 import com.example.workinghours.util.OnAsyncEventListener;
-import com.example.workinghours.viewmodel.BaseApp;
+import com.example.workinghours.BaseApp;
 
 import java.util.List;
 

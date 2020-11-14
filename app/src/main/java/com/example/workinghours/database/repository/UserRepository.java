@@ -11,7 +11,7 @@ import com.example.workinghours.database.async.users.DeleteUser;
 import com.example.workinghours.database.async.users.UpdateUser;
 import com.example.workinghours.database.entity.UserEntity;
 import com.example.workinghours.util.OnAsyncEventListener;
-import com.example.workinghours.viewmodel.BaseApp;
+import com.example.workinghours.BaseApp;
 
 import java.util.List;
 

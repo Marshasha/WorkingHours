@@ -13,7 +13,7 @@ import com.example.workinghours.database.entity.ActivityEntity;
 import com.example.workinghours.database.repository.ActivityRepository;
 import com.example.workinghours.database.repository.ProjectRepository;
 import com.example.workinghours.util.OnAsyncEventListener;
-import com.example.workinghours.viewmodel.BaseApp;
+import com.example.workinghours.BaseApp;
 
 import java.util.List;
 

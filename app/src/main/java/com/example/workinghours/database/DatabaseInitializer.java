@@ -40,7 +40,15 @@ public class DatabaseInitializer {
     private static void populateWithTestData(AppDataBase db) throws ParseException {
         db.userDao().deleteAll();
 
-        addUser(db, "marina@gmail.com", "123");
+        addUser(db, "marina@gmail.com", "12345");
+        addUser(db, "pete@shart.ch", "passWord2");
+
+        try {
+            // Let's ensure that the users are already stored in the database before we continue.
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         addProject(db,
                 "myFirstProject", "marina@gmail.com");
@@ -48,6 +56,7 @@ public class DatabaseInitializer {
                 "mySecondProject", "marina@gmail.com" );
         addProject(db,
                 "myThirdProject", "marina@gmail.com");
+        addProject(db, "myCodingProject", "pete@shart.ch");
 
         try {
             // Let's ensure that the projects are already stored in the database before we continue.

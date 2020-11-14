@@ -40,7 +40,7 @@
     <string name="demo_data_initiated">Demo data initiated</string>
     <string name="error_field_required">Please enter email</string>
     <string name="error_incorrect_password">Password is not valid</string>
-    <string name="reset_msg">Reset Data</string>
+    <string name="reset_msg">Reset Data?</string>
     <string name="action_reset">The data was created</string>
 
     <string name="impressum"></string>
@@ -55,13 +55,17 @@
     <string name="title_add_new_project">Start new project</string>
     <string name="title_my_projects">My projects</string>
     <string name="title_report">Report</string>
-    <string name="action_logout">Out</string>
+    <string name="action_logout">Logout</string>
+    <string name="question_logout">Do you wish to logout?</string>
 
     <string name="editProjectName">Edit your project name</string>
     <string name="editDay">Edit date</string>
     <string name="editActivityName">Edit activity name</string>
     <string name="editActivity">Edit activity</string>
     <string name="delete_confirm_msg">The activity was deleted</string>
+    <string name="title_main_activity">My projects list</string>
+    <string name="title_project_delete">Delete project</string>
+    <string name="project_delete_msg">Do you want to delete this project?</string>
 
 
 </resources>

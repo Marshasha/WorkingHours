@@ -22,13 +22,7 @@ public interface UserDao {
     @Query("SELECT * FROM users")
     LiveData<List<UserEntity>> getAll();
 
-    /**
-     * This method is used to populate the transaction activity.
-     * It returns all OTHER users and their accounts.
-     * @paramid Id of the client who should be excluded from the list.
-     * @return A live data object containing a list of ClientAccounts with
-     * containing all clients but the @id.
-     */
+
 
     @Insert
     long insert(UserEntity user) throws SQLiteConstraintException;

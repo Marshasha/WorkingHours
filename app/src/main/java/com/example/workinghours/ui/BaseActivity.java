@@ -105,21 +105,21 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
 
         navigationView.setCheckedItem(id);
 
-//        if (id == R.id.nav_client) {
-//            intent = new Intent(this, ClientActivity.class);
-//        } else if (id == R.id.nav_accounts) {
-//            intent = new Intent(this, AccountsActivity.class);
-//        } else if (id == R.id.nav_transaction) {
-//            intent = new Intent(this, TransactionActivity.class);
-//        } else if (id == R.id.nav_logout) {
-//            logout();
-//        }
-//        if (intent != null) {
-//            intent.setFlags(
-//                    Intent.FLAG_ACTIVITY_NO_ANIMATION
-//            );
-//            startActivity(intent);
-//        }
+        if (id == R.id.nav_add_project) {
+            intent = new Intent(this, AddProjectActivity.class);
+        } else if (id == R.id.nav_projects) {
+            intent = new Intent(this, MainActivity.class);
+        } else if (id == R.id.nav_report) {
+            intent = new Intent(this, Report.class);
+        } else if (id == R.id.nav_logout) {
+            logout();
+        }
+        if (intent != null) {
+            intent.setFlags(
+                    Intent.FLAG_ACTIVITY_NO_ANIMATION
+            );
+            startActivity(intent);
+        }
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }

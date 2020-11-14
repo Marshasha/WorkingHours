@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.workinghours.database.entity.ActivityEntity;
 import com.example.workinghours.database.repository.ActivityRepository;
 import com.example.workinghours.util.OnAsyncEventListener;
-import com.example.workinghours.viewmodel.BaseApp;
+import com.example.workinghours.BaseApp;
 
 public class ActivityViewModel extends AndroidViewModel {
 

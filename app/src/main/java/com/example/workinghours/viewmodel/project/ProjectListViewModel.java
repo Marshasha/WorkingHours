@@ -10,8 +10,10 @@ import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.workinghours.BaseApp;
 import com.example.workinghours.database.entity.ProjectEntity;
 import com.example.workinghours.database.repository.ProjectRepository;
+import com.example.workinghours.database.repository.UserRepository;
 
 import java.util.List;
 
@@ -19,13 +21,19 @@ public class ProjectListViewModel extends AndroidViewModel {
 
     private ProjectRepository repository;
 
+    private Application application;
+
     private Context applicationContext;
 
     // MediatorLiveData can observe other LiveData objects and react on their emissions.
     private final MediatorLiveData<List<ProjectEntity>> observableProjects;
 
-    public ProjectListViewModel(@NonNull Application application, ProjectRepository projectRepository) {
+
+    public ProjectListViewModel(@NonNull Application application,
+                                ProjectRepository projectRepository) {
         super(application);
+
+        this.application = application;
 
         repository=projectRepository;
 
@@ -48,11 +56,17 @@ public class ProjectListViewModel extends AndroidViewModel {
         @NonNull
         private final Application application;
 
+        private final String userId;
+
+        private final UserRepository userRepository;
+
         private final ProjectRepository projectRepository;
 
-        public Factory(@NonNull Application application) {
+        public Factory(@NonNull Application application, String userId) {
             this.application = application;
-            projectRepository = ProjectRepository.getInstance();
+            this.userId=userId;
+            userRepository = ((BaseApp)application).getUserRepository();
+            projectRepository = ((BaseApp)application).getProjectRepository();
         }
 
         @Override

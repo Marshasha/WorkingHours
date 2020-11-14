@@ -19,7 +19,7 @@ import com.example.workinghours.database.AppDataBase;
 import com.example.workinghours.database.repository.UserRepository;
 import com.example.workinghours.ui.BaseActivity;
 import com.example.workinghours.ui.MainActivity;
-import com.example.workinghours.viewmodel.BaseApp;
+import com.example.workinghours.BaseApp;
 
 import static com.example.workinghours.database.AppDataBase.initializeDemoData;
 

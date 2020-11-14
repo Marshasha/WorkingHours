@@ -4,9 +4,8 @@ import android.app.Application;
 import android.os.AsyncTask;
 
 import com.example.workinghours.database.entity.ProjectEntity;
-import com.example.workinghours.database.entity.UserEntity;
 import com.example.workinghours.util.OnAsyncEventListener;
-import com.example.workinghours.viewmodel.BaseApp;
+import com.example.workinghours.BaseApp;
 
 public class CreateProject extends AsyncTask<ProjectEntity, Void, Void> {
 

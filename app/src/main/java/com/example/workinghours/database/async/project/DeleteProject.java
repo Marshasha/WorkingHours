@@ -5,7 +5,7 @@ import android.os.AsyncTask;
 
 import com.example.workinghours.database.entity.ProjectEntity;
 import com.example.workinghours.util.OnAsyncEventListener;
-import com.example.workinghours.viewmodel.BaseApp;
+import com.example.workinghours.BaseApp;
 
 public class DeleteProject extends AsyncTask<ProjectEntity, Void, Void> {
     private Application application;
