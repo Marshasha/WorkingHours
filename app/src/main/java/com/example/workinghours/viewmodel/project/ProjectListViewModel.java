@@ -24,13 +24,13 @@ public class ProjectListViewModel extends AndroidViewModel {
 
     private Application application;
 
-    private Context applicationContext;
-
     // MediatorLiveData can observe other LiveData objects and react on their emissions.
     private final MediatorLiveData<List<ProjectEntity>> observableProjects;
 
 
     public ProjectListViewModel(@NonNull Application application,
+                                final String userId,
+                                UserRepository userRepository,
                                 ProjectRepository projectRepository) {
         super(application);
 
@@ -43,7 +43,7 @@ public class ProjectListViewModel extends AndroidViewModel {
         // set by default null, until we get data from the database.
         observableProjects.setValue(null);
 
-        LiveData<List<ProjectEntity>> projects = repository.getAllProjects(applicationContext);
+        LiveData<List<ProjectEntity>> projects = repository.getProjectsByUser(userId, application);
 
         // observe the changes of the entities from the database and forward them
         observableProjects.addSource(projects, observableProjects::setValue);
@@ -73,7 +73,7 @@ public class ProjectListViewModel extends AndroidViewModel {
         @Override
         public <T extends ViewModel> T create(Class<T> modelClass) {
             //noinspection unchecked
-            return (T) new ProjectListViewModel(application, projectRepository);
+            return (T) new ProjectListViewModel(application, userId, userRepository, projectRepository);
         }
     }
 
@@ -81,10 +81,8 @@ public class ProjectListViewModel extends AndroidViewModel {
         repository.delete(project, callback, application);
     }
 
-    /**
-     * Expose the LiveData ProjectEntities query so the UI can observe it.
-     */
-    public LiveData<List<ProjectEntity>> getAllProjects() {
+    public LiveData<List<ProjectEntity>> getUserProjects(){
         return observableProjects;
     }
+
 }

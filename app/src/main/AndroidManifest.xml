@@ -46,7 +46,7 @@
                 android:value="com.example.workinghours.ui.login.LoginActivity" />
         </activity>
         <activity
-            android:name=".ui.AddProjectActivity"
+            android:name=".ui.project.AddProjectActivity"
             android:label="@string/addNewProjectName"
             android:parentActivityName=".ui.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -55,16 +55,16 @@
                 android:value="com.example.workinghours.ui.MainActivity" />
         </activity>
         <activity
-            android:name=".ui.AddProjectPage"
+            android:name=".ui.project.AddProjectPage"
             android:label="@string/addNewProjectName"
-            android:parentActivityName=".ui.AddProjectActivity"
+            android:parentActivityName=".ui.project.AddProjectActivity"
             android:theme="@style/AppTheme.NoActionBar">
         <meta-data
             android:name="android.support.PARENT_ACTIVITY"
-            android:value="com.example.workinghours.ui.AddProjectActivity" />
+            android:value="com.example.workinghours.ui.project.AddProjectActivity" />
         </activity>
         <activity
-            android:name=".ui.ProjectDetails"
+            android:name=".ui.project.ProjectDetails"
             android:label="@string/title_my_projects"
             android:parentActivityName=".ui.MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -73,14 +73,31 @@
                 android:value="com.example.workinghours.ui.MainActivity" />
         </activity>
         <activity
-            android:name=".ui.ProjectEditPage"
+            android:name=".ui.project.ProjectTrack"
+            android:label="@string/start_chronometer"
+            android:parentActivityName=".ui.project.ProjectDetails"
+            android:theme="@style/AppTheme.NoActionBar">
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.example.workinghours.ui.project.ProjectDetails" />
+        </activity>
+        <activity
+            android:name=".ui.activity.ActivityEditPage"
             android:label="@string/title_edit_activity"
-            android:parentActivityName=".ui.ProjectDetails">
+            android:parentActivityName=".ui.project.ProjectDetails">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.workinghours.ui.ProjectDetails" />
+                android:value="com.example.workinghours.ui.project.ProjectDetails" />
         </activity>
-
+        <activity
+            android:name=".ui.activity.AddActivityInProject"
+            android:label="@string/add_activity_name"
+            android:parentActivityName=".ui.project.ProjectTrack"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.workinghours.ui.project.ProjectTrack" />
+         </activity>
         <activity
             android:name=".ui.BaseActivity"
             android:theme="@style/AppTheme.NoActionBar" />

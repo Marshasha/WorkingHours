@@ -75,6 +75,8 @@
     <string name="title_project_edit">Edit project name</string>
     <string name="save_changes">Save changes</string>
     <string name="project_edited">Project name edited</string>
+    <string name="add_activity_name">Type what you are doing now</string>
+    <string name="start_chronometer">Start tracking</string>
 
 
 </resources>

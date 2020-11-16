@@ -17,6 +17,9 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.workinghours.R;
 import com.example.workinghours.ui.login.LoginActivity;
 import com.example.workinghours.ui.login.SettingsActivity;
+import com.example.workinghours.ui.project.AddProjectActivity;
+import com.example.workinghours.ui.project.AddProjectPage;
+import com.example.workinghours.ui.report.Report;
 import com.google.android.material.navigation.NavigationView;
 
 public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -107,9 +110,9 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
         navigationView.setCheckedItem(id);
 
         if (id == R.id.nav_add_project) {
-            intent = new Intent(this, AddProjectActivity.class);
+            intent = new Intent(this, AddProjectPage.class);
         } else if (id == R.id.nav_projects) {
-            intent = new Intent(this, MainActivity.class);
+            intent = new Intent(this, AddProjectActivity.class);
         } else if (id == R.id.nav_report) {
             intent = new Intent(this, Report.class);
         } else if (id == R.id.nav_logout) {

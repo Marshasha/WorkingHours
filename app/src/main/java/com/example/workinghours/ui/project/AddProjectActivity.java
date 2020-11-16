@@ -1,4 +1,4 @@
-package com.example.workinghours.ui;
+package com.example.workinghours.ui.project;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -22,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.workinghours.R;
 import com.example.workinghours.adapter.RecyclerAdapter;
 import com.example.workinghours.database.entity.ProjectEntity;
+import com.example.workinghours.ui.BaseActivity;
 import com.example.workinghours.util.OnAsyncEventListener;
 import com.example.workinghours.util.RecyclerViewItemClickListener;
 import com.example.workinghours.viewmodel.project.ProjectListViewModel;
@@ -62,11 +63,6 @@ public class AddProjectActivity extends BaseActivity {
         adapter = new RecyclerAdapter<>(new RecyclerViewItemClickListener() {
 
             @Override
-            public void onItemClick(String text) {
-
-            } // how to get rid of it???
-
-            @Override
             public void onItemClick(View v, int position) {
                 Log.d(TAG, "clicked position:" + position);
                 Log.d(TAG, "clicked on: " + projects.get(position).getProjectName());
@@ -101,7 +97,7 @@ public class AddProjectActivity extends BaseActivity {
         ProjectListViewModel.Factory factory = new ProjectListViewModel.Factory(
                 getApplication(), user);
         viewModel = ViewModelProviders.of(this, factory).get(ProjectListViewModel.class);
-        viewModel.getAllProjects().observe(this, projectEntities -> {
+        viewModel.getUserProjects().observe(this, projectEntities -> {
             if (projectEntities != null) {
                 projects = projectEntities;
                 adapter.setData(projects);

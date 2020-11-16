@@ -26,17 +26,10 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        TextView textView;
-        ViewHolder(@NonNull View itemView, RecyclerViewItemClickListener listener) {
-            super(itemView);
-            this.textView = itemView.findViewById(R.id.ItemName);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    listener.onItemClick((String) textView.getText());
-                }
-            });
+        TextView mTextView;
+        ViewHolder(TextView textView) {
+            super(textView);
+            mTextView = textView;
         }
     }
 
@@ -47,18 +40,24 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
     @Override
     public RecyclerAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
-        View v = LayoutInflater.from(parent.getContext())
+        TextView v = (TextView) LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.recycler_view, parent, false);
-        return new ViewHolder(v, listener);
+        final ViewHolder viewHolder = new ViewHolder(v);
+        v.setOnClickListener(view -> listener.onItemClick(view, viewHolder.getAdapterPosition()));
+        v.setOnLongClickListener(view -> {
+            listener.onItemLongClick(view, viewHolder.getAdapterPosition());
+            return true;
+        });
+        return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(RecyclerAdapter.ViewHolder holder, int position) {
         T item = mData.get(position);
         if (item.getClass().equals(ProjectEntity.class))
-            holder.textView.setText(((ProjectEntity) item).getProjectName());
+            holder.mTextView.setText(((ProjectEntity) item).getProjectName());
         if (item.getClass().equals(ActivityEntity.class))
-            holder.textView.setText(new StringBuilder().append(((ActivityEntity) item).getDateStart()).append(" - ")
+            holder.mTextView.setText(new StringBuilder().append(((ActivityEntity) item).getDateStart()).append(" - ")
                     .append(((ActivityEntity) item).getDateFinish()).append(" ").append(((ActivityEntity) item).getActivityName())
                     .append(" ").append(((ActivityEntity) item).getDuration()).toString());
     }

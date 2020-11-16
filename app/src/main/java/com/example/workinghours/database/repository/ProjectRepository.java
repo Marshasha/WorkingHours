@@ -32,6 +32,10 @@ public class ProjectRepository {
         return instance;
     }
 
+    public LiveData<List<ProjectEntity>> getProjectsByUser(String user, Application app){
+        return ((BaseApp) app).getDatabase().projectDao().getProjectsByUser(user);
+    }
+
     public LiveData<ProjectEntity> getProjectByName(final String projectName, Application app) {
         return ((BaseApp) app).getDatabase().projectDao().getByName(projectName);
     }

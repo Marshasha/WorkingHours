@@ -8,7 +8,7 @@
     android:layout_marginRight="16dp"
     android:layout_marginTop="16dp"
     android:orientation="vertical"
-    tools:context=".ui.ProjectEditPage">
+    tools:context=".ui.activity.ActivityEditPage">
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"

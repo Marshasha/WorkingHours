@@ -1,4 +1,4 @@
-package com.example.workinghours.ui;
+package com.example.workinghours.ui.project;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.workinghours.R;
 import com.example.workinghours.database.entity.ProjectEntity;
+import com.example.workinghours.ui.BaseActivity;
 import com.example.workinghours.util.OnAsyncEventListener;
 import com.example.workinghours.viewmodel.project.ProjectViewModel;
 

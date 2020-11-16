@@ -1,4 +1,4 @@
-package com.example.workinghours.ui;
+package com.example.workinghours.ui.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -17,6 +17,8 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.example.workinghours.R;
 import com.example.workinghours.database.entity.ActivityEntity;
+import com.example.workinghours.ui.BaseActivity;
+import com.example.workinghours.ui.MainActivity;
 import com.example.workinghours.util.OnAsyncEventListener;
 import com.example.workinghours.viewmodel.activity.ActivityViewModel;
 
@@ -24,7 +26,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class ProjectEditPage extends BaseActivity {
+public class ActivityEditPage extends BaseActivity {
 
     private static final int EDIT_ACTIVITY = 1;
     private static final int DELETE_ACTIVITY = 2;
