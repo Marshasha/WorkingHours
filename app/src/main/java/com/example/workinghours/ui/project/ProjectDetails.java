@@ -1,6 +1,7 @@
 package com.example.workinghours.ui.project;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -59,17 +60,12 @@ public class ProjectDetails extends BaseActivity {
                 project = projectEntity;
                 Log.i(TAG, "projectEntity is not null " + project.getUser());
                 updateContent();
-
-                ActivityListViewModel.Factory factoryA = new ActivityListViewModel.Factory(getApplication(), project.getId());
-                viewModelA = ViewModelProviders.of(this, factoryA).get(ActivityListViewModel.class);
-                viewModelA.getProjectActivities().observe(this, activityEntities -> {
-                    if(activityEntities != null){
-                        activities = activityEntities;
-                        adapter.setData(activities);
-                    }
-                });
+                lunchActivitiesList();
             }
         });
+    }
+
+    private void lunchActivitiesList(){
 
         /** 2nd part of the screen devoted to the list of activities bolonging to the project.
          * This list may be empty, if there are not yet activities added*/
@@ -82,6 +78,9 @@ public class ProjectDetails extends BaseActivity {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(recyclerView.getContext(),
                 LinearLayoutManager.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
+
+        SharedPreferences settings = getSharedPreferences(BaseActivity.PREFS_NAME, 0);
+        Long projectId = settings.getLong(BaseActivity.PREFS_PROJECT, 0L);
 
         activities = new ArrayList<>();
         adapter = new RecyclerAdapter<>(new RecyclerViewItemClickListener() {
@@ -101,11 +100,18 @@ public class ProjectDetails extends BaseActivity {
 
             @Override
             public void onItemLongClick(View v, int position) {
-
+                // to add code to delete activity
             }
         });
 
-
+        ActivityListViewModel.Factory factoryA = new ActivityListViewModel.Factory(getApplication(), projectId);
+        viewModelA = ViewModelProviders.of(this, factoryA).get(ActivityListViewModel.class);
+        viewModelA.getProjectActivities().observe(this, activityEntities -> {
+            if(activityEntities != null){
+                activities = activityEntities;
+                adapter.setData(activities);
+            }
+        });
 
         recyclerView.setAdapter(adapter);
     }
@@ -130,14 +136,14 @@ public class ProjectDetails extends BaseActivity {
 
     private void addActivityInProject(){
         Intent intent = new Intent (ProjectDetails.this, AddActivityInProject.class);
-      //  intent.putExtra("projectId", project.getId()); //??? NullPointerException
+        intent.putExtra("projectId", project.getId());
         startActivity(intent);
     }
 
     private void startChronometer(){
 
         Intent intent = new Intent(ProjectDetails.this, ProjectTrack.class);
-    //    intent.putExtra("projectId", project.getId());
+        intent.putExtra("projectId", project.getId());
         startActivity(intent);
     }
 

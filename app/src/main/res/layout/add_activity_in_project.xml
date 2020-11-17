@@ -23,29 +23,17 @@
             android:inputType="textPersonName" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!--<com.google.android.material.textfield.TextInputLayout
+    <TimePicker
+        android:id="@+id/startTime"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:timePickerMode="spinner"/>
 
-        <EditText
-            android:id="@+id/textView_DateStart"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="DD/MM/YYYY MM:SS" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
+    <TimePicker
+        android:id="@+id/endTime"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:id="@+id/textView_DateEnd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="DD/MM/YYYY MM:SS" />
-    </com.google.android.material.textfield.TextInputLayout> -->
+        android:layout_height="wrap_content"
+        android:timePickerMode="spinner"/>
 
     <Button
         android:id="@+id/createActivityButton"

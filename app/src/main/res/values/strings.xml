@@ -82,5 +82,6 @@
     <string name="activity_create">Create activity</string>
     <string name="activity_created">Activity created</string>
     <string name="activity_edit">Edit Activity</string>
+    <string name="button_stop">Stop</string>
 
 </resources>

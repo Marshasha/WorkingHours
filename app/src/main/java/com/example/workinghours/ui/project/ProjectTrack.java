@@ -4,11 +4,14 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
@@ -30,7 +33,12 @@ public class ProjectTrack extends BaseActivity {
     private static final String TAG = "ProjectTrack";
 
     private TextView textViewTimer;
+    private Button startButton;
+    private Button stopButton;
+    private EditText input;
     private ProjectEntity project;
+    private Long projectId;
+    private Toast toast;
     private ProjectViewModel viewModelP;
     private ActivityViewModel viewModelA;
 
@@ -45,7 +53,7 @@ public class ProjectTrack extends BaseActivity {
         super.onCreate(savedInstanceState);
         getLayoutInflater().inflate(R.layout.activity_project_track, frameLayout);
         navigationView.setCheckedItem(position);
-        Long projectId = getIntent().getLongExtra("projectId", 0L);
+        projectId = getIntent().getLongExtra("projectId", 0L);
 
         initiateView();
 
@@ -70,10 +78,24 @@ public class ProjectTrack extends BaseActivity {
 
     private void initiateView(){
         textViewTimer = findViewById(R.id.textView_Timer);
+        startButton = findViewById(R.id.button_start);
+        stopButton = findViewById(R.id.button_stop);
         runTimer();
     }
 
     public void onClickStartTimer(View view) {
+
+        int activityId = getIntent().getIntExtra("activityId", 0);
+
+        ActivityViewModel.Factory factory = new ActivityViewModel.Factory(
+                getApplication(), activityId);
+        viewModelA = ViewModelProviders.of(this, factory).get(ActivityViewModel.class);
+        viewModelA.getActivity().observe(this, activityEntity -> {
+            if(activityEntity != null){
+                activity = activityEntity;
+            }
+        });
+
         date = Calendar.getInstance().getTime();
         activity.setDateStart(date);
         isRunning = true;
@@ -81,7 +103,6 @@ public class ProjectTrack extends BaseActivity {
 
     public void onClickStopTimer(View view) {
         isRunning=false;
-        //Dialog to add Activity name
         createActivityNameDialog();
     }
 
@@ -91,18 +112,23 @@ public class ProjectTrack extends BaseActivity {
 
         LayoutInflater inflater = LayoutInflater.from(this);
         final View view = inflater.inflate(R.layout.activity_name, null);
-        final AlertDialog ad = new AlertDialog.Builder(this).create();
-        ad.setTitle(R.string.activityName);
-        ad.setCancelable(false);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.activityName);
+        input = new EditText(this);
+
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.setView(input);
+
+        builder.setCancelable(false);
 
         final EditText activityName = view.findViewById(R.id.activity_name);
-        ad.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.action_accept), new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getString(R.string.action_accept), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 String name = activityName.getText().toString();
                 activity.setActivityName(name);
 
-                viewModelA.updateActivity(activity, new OnAsyncEventListener() {
+                viewModelA.createActivity(activity, new OnAsyncEventListener() {
                     @Override
                     public void onSuccess() {
                         Log.d(TAG, "updateActivity : success"); }
@@ -114,10 +140,14 @@ public class ProjectTrack extends BaseActivity {
             }
         });
 
-        ad.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.action_cancel),
-                (dialog, which) -> ad.dismiss());
-        ad.setView(view);
-        ad.show();
+        builder.setNegativeButton( getString(R.string.action_cancel), new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
     }
 
 
