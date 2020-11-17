@@ -83,5 +83,7 @@
     <string name="activity_created">Activity created</string>
     <string name="activity_edit">Edit Activity</string>
     <string name="button_stop">Stop</string>
+    <string name="startTime">You\'ve started working at</string>
+    <string name="endTime">You\'ve finished work at</string>
 
 </resources>

@@ -46,7 +46,9 @@ public class ProjectTrack extends BaseActivity {
     private boolean isRunning = false;
 
     private ActivityEntity activity = new ActivityEntity();
-    private Date date;
+    private Date dateStart;
+    private Date dateEnd;
+    private String duration;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,13 +59,24 @@ public class ProjectTrack extends BaseActivity {
 
         initiateView();
 
-        ProjectViewModel.Factory factory = new ProjectViewModel.Factory(
+        ProjectViewModel.Factory factoryP = new ProjectViewModel.Factory(
                 getApplication(), projectId);
-        viewModelP = ViewModelProviders.of(this, factory).get(ProjectViewModel.class);
+        viewModelP = ViewModelProviders.of(this, factoryP).get(ProjectViewModel.class);
         viewModelP.getProject().observe(this, projectEntity -> {
             if(projectEntity != null){
                 project = projectEntity;
                 updateContent();
+            }
+        });
+
+        int activityId = getIntent().getIntExtra("activityId", 0);
+
+        ActivityViewModel.Factory factoryA = new ActivityViewModel.Factory(
+                getApplication(), activityId);
+        viewModelA = ViewModelProviders.of(this, factoryA).get(ActivityViewModel.class);
+        viewModelA.getActivity().observe(this, activityEntity -> {
+            if(activityEntity != null){
+                activity = activityEntity;
             }
         });
     }
@@ -84,20 +97,9 @@ public class ProjectTrack extends BaseActivity {
     }
 
     public void onClickStartTimer(View view) {
-
-        int activityId = getIntent().getIntExtra("activityId", 0);
-
-        ActivityViewModel.Factory factory = new ActivityViewModel.Factory(
-                getApplication(), activityId);
-        viewModelA = ViewModelProviders.of(this, factory).get(ActivityViewModel.class);
-        viewModelA.getActivity().observe(this, activityEntity -> {
-            if(activityEntity != null){
-                activity = activityEntity;
-            }
-        });
-
-        date = Calendar.getInstance().getTime();
-        activity.setDateStart(date);
+        dateStart = Calendar.getInstance().getTime();
+        activity.setDateStart(dateStart);
+        activity.setProjectId(projectId);
         isRunning = true;
     }
 
@@ -107,8 +109,10 @@ public class ProjectTrack extends BaseActivity {
     }
 
     private void createActivityNameDialog(){
-        date = Calendar.getInstance().getTime();
-        activity.setDateFinish(date);
+        dateEnd = Calendar.getInstance().getTime();
+        activity.setDateFinish(dateEnd);
+        duration = calculateDuration(dateStart, dateEnd);
+        activity.setDuration(duration);
 
         LayoutInflater inflater = LayoutInflater.from(this);
         final View view = inflater.inflate(R.layout.activity_name, null);
@@ -117,15 +121,15 @@ public class ProjectTrack extends BaseActivity {
         input = new EditText(this);
 
         input.setInputType(InputType.TYPE_CLASS_TEXT);
+        builder.create();
         builder.setView(input);
-
         builder.setCancelable(false);
 
         final EditText activityName = view.findViewById(R.id.activity_name);
         builder.setPositiveButton(getString(R.string.action_accept), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                String name = activityName.getText().toString();
+                String name = input.getText().toString();
                 activity.setActivityName(name);
 
                 viewModelA.createActivity(activity, new OnAsyncEventListener() {
@@ -170,5 +174,30 @@ public class ProjectTrack extends BaseActivity {
             }
         });
 
+    }
+
+    public String calculateDuration(Date start, Date finish){
+
+        long different = finish.getTime() - start.getTime();
+
+        long secondsInMilli = 1000;
+        long minutesInMilli = secondsInMilli * 60;
+        long hoursInMilli = minutesInMilli * 60;
+        long daysInMilli = hoursInMilli * 24;
+
+        long elapsedDays = different / daysInMilli;
+        different = different % daysInMilli;
+
+        long elapsedHours = different / hoursInMilli;
+        different = different % hoursInMilli;
+
+        long elapsedMinutes = different / minutesInMilli;
+        different = different % minutesInMilli;
+
+        long elapsedSeconds = different / secondsInMilli;
+
+        String duration = elapsedDays + "%d d" + elapsedHours + "%d h " + elapsedMinutes + " %d min" + elapsedSeconds + "%d sec";
+
+        return duration;
     }
 }

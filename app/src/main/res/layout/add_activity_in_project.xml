@@ -23,12 +23,22 @@
             android:inputType="textPersonName" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <TextView
+        android:id="@+id/title_startTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/startTime"/>
     <TimePicker
         android:id="@+id/startTime"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:timePickerMode="spinner"/>
 
+    <TextView
+        android:id="@+id/title_endTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/endTime"/>
     <TimePicker
         android:id="@+id/endTime"
         android:layout_width="match_parent"

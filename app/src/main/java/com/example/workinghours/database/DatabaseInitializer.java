@@ -32,8 +32,8 @@ public class DatabaseInitializer {
     }
 
     private static void addActivity(final AppDataBase db, final String name, final Date start, final Date finish,
-                                   final Long projectId) {
-        ActivityEntity activity = new ActivityEntity(name, start, finish, projectId);
+                                   final String duration, final Long projectId) {
+        ActivityEntity activity = new ActivityEntity(name, start, finish, duration, projectId);
         db.activityDao().insert(activity);
     }
 
@@ -69,14 +69,14 @@ public class DatabaseInitializer {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/M/yyyy hh:mm:ss");
         addActivity(db,
                 "Planning", simpleDateFormat.parse("28/10/2020 14:15:30") , simpleDateFormat.parse("28/10/2020 15:15:30"),
-                1L);
+                "1h30min", 1L);
 
         addActivity(db,
                 "Coding", simpleDateFormat.parse("28/10/2020 15:25:30") , simpleDateFormat.parse("28/10/2020 17:15:30"),
-                1L);
+                "2h13min", 1L);
         addActivity(db,
                 "Design", simpleDateFormat.parse("28/10/2020 18:25:30") , simpleDateFormat.parse("28/10/2020 19:15:30"),
-                1L);
+                "1h15min", 1L);
     }
 
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {

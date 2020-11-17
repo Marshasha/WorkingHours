@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -35,6 +36,9 @@ public class AddActivityInProject extends BaseActivity {
     private EditText etActivityName;
     private TimePicker startTimePicker;
     private TimePicker endTimePicker;
+    private TextView startTimeTitle;
+    private TextView endTimeTitle;
+    private String durationOfActivity;
     private ActivityViewModel viewModel;
     private final Calendar myCalendar = Calendar.getInstance();
 
@@ -51,8 +55,10 @@ public class AddActivityInProject extends BaseActivity {
         etActivityName = findViewById(R.id.textView_ActivityName);
         startTimePicker = findViewById(R.id.startTime);
         startTimePicker.setIs24HourView(true);
+        startTimeTitle = findViewById(R.id.title_startTime);
         endTimePicker = findViewById(R.id.endTime);
         endTimePicker.setIs24HourView(true);
+        endTimeTitle = findViewById(R.id.title_endTime);
         etActivityName.requestFocus();
 
         Button saveBtn = findViewById(R.id.createActivityButton);
@@ -95,11 +101,14 @@ public class AddActivityInProject extends BaseActivity {
         myCalendar.set(Calendar.HOUR_OF_DAY, endTimePicker.getHour());
         myCalendar.set(Calendar.MINUTE, endTimePicker.getMinute());
         Date endDate = myCalendar.getTime();
+        durationOfActivity = calculateDuration(startDate, endDate);
+
         if (isEditMode) {
             if(!"".equals(activityName)) {
                 activity.setActivityName(activityName);
                 activity.setDateStart(startDate);
                 activity.setDateFinish(endDate);
+                activity.setDuration(durationOfActivity);
 
                 viewModel.updateActivity(activity, new OnAsyncEventListener() {
                     @Override
@@ -119,6 +128,7 @@ public class AddActivityInProject extends BaseActivity {
             newActivity.setActivityName(activityName);
             newActivity.setDateStart(startDate);
             newActivity.setDateFinish(endDate);
+            newActivity.setDuration(durationOfActivity);
 
             viewModel.createActivity(newActivity, new OnAsyncEventListener() {
                 @Override
@@ -132,5 +142,30 @@ public class AddActivityInProject extends BaseActivity {
                 }
             });
         }
+    }
+
+    public String calculateDuration(Date start, Date finish){
+
+        long different = finish.getTime() - start.getTime();
+
+        long secondsInMilli = 1000;
+        long minutesInMilli = secondsInMilli * 60;
+        long hoursInMilli = minutesInMilli * 60;
+        long daysInMilli = hoursInMilli * 24;
+
+        long elapsedDays = different / daysInMilli;
+        different = different % daysInMilli;
+
+        long elapsedHours = different / hoursInMilli;
+        different = different % hoursInMilli;
+
+        long elapsedMinutes = different / minutesInMilli;
+        different = different % minutesInMilli;
+
+        long elapsedSeconds = different / secondsInMilli;
+
+        String duration = elapsedDays + "%d d" + elapsedHours + "%d h " + elapsedMinutes + " %d min" + elapsedSeconds + "%d sec";
+
+        return duration;
     }
 }

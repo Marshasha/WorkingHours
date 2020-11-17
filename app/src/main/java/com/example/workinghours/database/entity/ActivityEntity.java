@@ -30,11 +30,11 @@ public class ActivityEntity {
 
     public ActivityEntity(){}
 
-    public ActivityEntity(@NonNull String activityName, Date dateStart, Date dateFinish, Long projectId) {
+    public ActivityEntity(@NonNull String activityName, Date dateStart, Date dateFinish, String duration, Long projectId) {
         this.activityName = activityName;
         this.dateStart=dateStart;
         this.dateFinish=dateFinish;
-        this.duration=calculateDuration(dateStart, dateFinish);
+        this.duration=duration;
         this.projectId = projectId;
 
     }
@@ -66,6 +66,10 @@ public class ActivityEntity {
 
     public String getDuration(){
        return calculateDuration(getDateStart(), getDateFinish());
+    }
+
+    public void setDuration(String duration){
+        this.duration=duration;
     }
 
     public int getId() {
