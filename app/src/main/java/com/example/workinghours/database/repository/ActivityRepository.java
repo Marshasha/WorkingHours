@@ -36,8 +36,8 @@ public class ActivityRepository {
         return ((BaseApp) application).getDatabase().activityDao().getActivityById(activityId);
     }
 
-    public LiveData<List<ActivityEntity>> getByProject(final String projectName, Application application) {
-        return ((BaseApp) application).getDatabase().activityDao().getOwned(projectName);
+    public LiveData<List<ActivityEntity>> getByProject(final Long projectId, Application application) {
+        return ((BaseApp) application).getDatabase().activityDao().getByProject(projectId);
     }
 
     public void insert(final ActivityEntity activity, OnAsyncEventListener callback,

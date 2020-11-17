@@ -8,22 +8,7 @@
     android:layout_marginRight="16dp"
     android:layout_marginTop="16dp"
     android:orientation="vertical"
-    tools:context=".ui.activity.ActivityEditPage">
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <EditText
-            android:id="@+id/textView_ProjectNameEdit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="@string/editProjectName"
-            android:focusable="false"
-            android:enabled="false"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
+    tools:context=".ui.activity.ActivityChronometer">
 
     <View
         android:id="@+id/view"

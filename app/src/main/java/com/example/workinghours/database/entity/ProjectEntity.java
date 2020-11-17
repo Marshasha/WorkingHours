@@ -41,6 +41,13 @@ public class ProjectEntity {
         this.user=user;
     }
 
+    @Ignore
+    public ProjectEntity(@NonNull Long id, @NonNull String projectName, String user) {
+        this.id = id;
+        this.projectName=projectName;
+        this.user=user;
+    }
+
     public long getId() {
         return id;
     }

@@ -72,7 +72,7 @@ public class AddProjectActivity extends BaseActivity {
                         Intent.FLAG_ACTIVITY_NO_ANIMATION |
                                 Intent.FLAG_ACTIVITY_NO_HISTORY
                 );
-                intent.putExtra("projectName", projects.get(position).getId());
+                intent.putExtra("projectId", projects.get(position).getId());
                 startActivity(intent);
             }
 

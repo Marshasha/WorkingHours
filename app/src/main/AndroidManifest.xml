@@ -20,39 +20,38 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.MainActivity"
-            android:label="@string/app_name"
+            android:name=".ui.project.AddProjectActivity"
+            android:label="@string/title_my_projects"
             android:parentActivityName=".ui.login.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.workinghours.ui.login.LoginActivity" />
+        <meta-data
+            android:name="android.support.PARENT_ACTIVITY"
+            android:value="com.example.workinghours.ui.login.LoginActivity" />
         </activity>
         <activity
             android:name=".ui.login.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName=".ui.MainActivity">
+            android:parentActivityName=".ui.project.AddProjectActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.workinghours.ui.MainActivity" />
+                android:value="com.example.workinghours.ui.project.AddProjectActivity" />
         </activity>
         <activity
             android:name=".ui.login.RegisterActivity"
             android:label="@string/action_register"
-            android:parentActivityName=".ui.login.LoginActivity"
-            >
+            android:parentActivityName=".ui.login.LoginActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.workinghours.ui.login.LoginActivity" />
         </activity>
         <activity
-            android:name=".ui.project.AddProjectActivity"
+            android:name=".ui.MainActivity"
             android:label="@string/addNewProjectName"
-            android:parentActivityName=".ui.MainActivity"
+            android:parentActivityName=".ui.login.RegisterActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.workinghours.ui.MainActivity" />
+                android:value="com.example.workinghours.ui.login.RegisterActivity" />
         </activity>
         <activity
             android:name=".ui.project.AddProjectPage"
@@ -66,11 +65,11 @@
         <activity
             android:name=".ui.project.ProjectDetails"
             android:label="@string/title_my_projects"
-            android:parentActivityName=".ui.MainActivity"
+            android:parentActivityName=".ui.project.AddProjectActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.workinghours.ui.MainActivity" />
+                android:value="com.example.workinghours.ui.project.AddProjectActivity" />
         </activity>
         <activity
             android:name=".ui.project.ProjectTrack"
@@ -81,14 +80,7 @@
             android:name="android.support.PARENT_ACTIVITY"
             android:value="com.example.workinghours.ui.project.ProjectDetails" />
         </activity>
-        <activity
-            android:name=".ui.activity.ActivityEditPage"
-            android:label="@string/title_edit_activity"
-            android:parentActivityName=".ui.project.ProjectDetails">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.workinghours.ui.project.ProjectDetails" />
-        </activity>
+
         <activity
             android:name=".ui.activity.AddActivityInProject"
             android:label="@string/add_activity_name"

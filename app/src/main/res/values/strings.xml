@@ -78,5 +78,9 @@
     <string name="add_activity_name">Type what you are doing now</string>
     <string name="start_chronometer">Start tracking</string>
 
+    <string name="activityName">Name what you are doing</string>
+    <string name="activity_create">Create activity</string>
+    <string name="activity_created">Activity created</string>
+    <string name="activity_edit">Edit Activity</string>
 
 </resources>

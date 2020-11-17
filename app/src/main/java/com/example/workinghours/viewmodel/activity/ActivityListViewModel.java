@@ -27,7 +27,7 @@ public class ActivityListViewModel extends AndroidViewModel {
     private final MediatorLiveData<List<ActivityEntity>> observableProjectActivities;
 
     public ActivityListViewModel(@NonNull Application application,
-                                final String projectName,
+                                final Long projectId,
                                 ProjectRepository projectRepository,
                                 ActivityRepository activityRepository) {
         super(application);
@@ -40,7 +40,7 @@ public class ActivityListViewModel extends AndroidViewModel {
         // set by default null, until we get data from the database.
         observableProjectActivities.setValue(null);
 
-        LiveData<List<ActivityEntity>> projectActivities = repository.getByProject(projectName, application);
+        LiveData<List<ActivityEntity>> projectActivities = repository.getByProject(projectId, application);
 
         // observe the changes of the entities from the database and forward them
         observableProjectActivities.addSource(projectActivities, observableProjectActivities::setValue);
@@ -54,15 +54,15 @@ public class ActivityListViewModel extends AndroidViewModel {
         @NonNull
         private final Application application;
 
-        private final String projectName;
+        private final Long projectId;
 
         private final ProjectRepository projectRepository;
 
         private final ActivityRepository activityRepository;
 
-        public Factory(@NonNull Application application, String projectName) {
+        public Factory(@NonNull Application application, Long projectId) {
             this.application = application;
-            this.projectName = projectName;
+            this.projectId = projectId;
             projectRepository = ((BaseApp) application).getProjectRepository();
             activityRepository = ((BaseApp) application).getActivityRepository();
         }
@@ -70,7 +70,7 @@ public class ActivityListViewModel extends AndroidViewModel {
         @Override
         public <T extends ViewModel> T create(Class<T> modelClass) {
             //noinspection unchecked
-            return (T) new ActivityListViewModel(application, projectName, projectRepository, activityRepository);
+            return (T) new ActivityListViewModel(application, projectId, projectRepository, activityRepository);
         }
     }
 

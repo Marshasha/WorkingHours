@@ -13,9 +13,9 @@ import java.util.Date;
 
 @Entity(tableName="activities", foreignKeys=@ForeignKey(entity=ProjectEntity.class,
                                             parentColumns="id",
-                                            childColumns="owner",
+                                            childColumns="projectId",
                                             onDelete = ForeignKey.CASCADE),
-                                            indices = {@Index(value = {"owner"})})
+                                            indices = {@Index(value = {"projectId"})})
 public class ActivityEntity {
 
     @PrimaryKey(autoGenerate = true)
@@ -26,16 +26,16 @@ public class ActivityEntity {
     @TypeConverters({DateConverter.class})
     public Date dateFinish;
     public String duration;
-    public String owner;
+    public Long projectId;
 
     public ActivityEntity(){}
 
-    public ActivityEntity(@NonNull String activityName, Date dateStart, Date dateFinish, String owner) {
+    public ActivityEntity(@NonNull String activityName, Date dateStart, Date dateFinish, Long projectId) {
         this.activityName = activityName;
         this.dateStart=dateStart;
         this.dateFinish=dateFinish;
         this.duration=calculateDuration(dateStart, dateFinish);
-        this.owner=owner;
+        this.projectId = projectId;
 
     }
 
@@ -96,12 +96,12 @@ public class ActivityEntity {
         this.dateFinish=finish;
     }
 
-    public String getOwner(){
-        return owner;
+    public Long getProjectId(){
+        return projectId;
     }
 
-    public void setOwner(String ownerName){
-        this.owner=ownerName;
+    public void setProjectId(Long ownerName){
+        this.projectId =ownerName;
     }
 
     @Override

@@ -16,8 +16,8 @@ import java.util.List;
 @Dao
 public abstract class ActivityDao {
 
-        @Query("SELECT * FROM activities WHERE owner = :owner")
-        public abstract LiveData<List<ActivityEntity>> getOwned(String owner);
+        @Query("SELECT * FROM activities WHERE projectId = :projectId")
+        public abstract LiveData<List<ActivityEntity>> getByProject(Long projectId);
 
         @Query("SELECT * FROM activities WHERE activityId = :id")
         public abstract LiveData<ActivityEntity> getActivityById(int id);

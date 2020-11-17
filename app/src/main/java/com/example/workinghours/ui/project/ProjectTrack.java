@@ -1,19 +1,28 @@
 package com.example.workinghours.ui.project;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.workinghours.R;
+import com.example.workinghours.database.entity.ActivityEntity;
 import com.example.workinghours.database.entity.ProjectEntity;
 import com.example.workinghours.ui.BaseActivity;
+import com.example.workinghours.util.OnAsyncEventListener;
+import com.example.workinghours.viewmodel.activity.ActivityViewModel;
 import com.example.workinghours.viewmodel.project.ProjectViewModel;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Locale;
 
 public class ProjectTrack extends BaseActivity {
@@ -22,10 +31,14 @@ public class ProjectTrack extends BaseActivity {
 
     private TextView textViewTimer;
     private ProjectEntity project;
-    private ProjectViewModel viewModel;
+    private ProjectViewModel viewModelP;
+    private ActivityViewModel viewModelA;
 
     private int seconds = 0;
     private boolean isRunning = false;
+
+    private ActivityEntity activity = new ActivityEntity();
+    private Date date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +51,8 @@ public class ProjectTrack extends BaseActivity {
 
         ProjectViewModel.Factory factory = new ProjectViewModel.Factory(
                 getApplication(), projectId);
-        viewModel = ViewModelProviders.of(this, factory).get(ProjectViewModel.class);
-        viewModel.getProject().observe(this, projectEntity -> {
+        viewModelP = ViewModelProviders.of(this, factory).get(ProjectViewModel.class);
+        viewModelP.getProject().observe(this, projectEntity -> {
             if(projectEntity != null){
                 project = projectEntity;
                 updateContent();
@@ -61,11 +74,50 @@ public class ProjectTrack extends BaseActivity {
     }
 
     public void onClickStartTimer(View view) {
+        date = Calendar.getInstance().getTime();
+        activity.setDateStart(date);
         isRunning = true;
     }
 
     public void onClickStopTimer(View view) {
         isRunning=false;
+        //Dialog to add Activity name
+        createActivityNameDialog();
+    }
+
+    private void createActivityNameDialog(){
+        date = Calendar.getInstance().getTime();
+        activity.setDateFinish(date);
+
+        LayoutInflater inflater = LayoutInflater.from(this);
+        final View view = inflater.inflate(R.layout.activity_name, null);
+        final AlertDialog ad = new AlertDialog.Builder(this).create();
+        ad.setTitle(R.string.activityName);
+        ad.setCancelable(false);
+
+        final EditText activityName = view.findViewById(R.id.activity_name);
+        ad.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.action_accept), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                String name = activityName.getText().toString();
+                activity.setActivityName(name);
+
+                viewModelA.updateActivity(activity, new OnAsyncEventListener() {
+                    @Override
+                    public void onSuccess() {
+                        Log.d(TAG, "updateActivity : success"); }
+
+                    @Override
+                    public void onFailure(Exception e) {
+                        Log.d(TAG, "updateActivity : failure"); }
+                });
+            }
+        });
+
+        ad.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.action_cancel),
+                (dialog, which) -> ad.dismiss());
+        ad.setView(view);
+        ad.show();
     }
 
 

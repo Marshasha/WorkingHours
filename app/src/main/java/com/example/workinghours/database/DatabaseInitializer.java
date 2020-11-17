@@ -26,14 +26,14 @@ public class DatabaseInitializer {
         db.userDao().insert(user);
     }
 
-    private static void addProject(final AppDataBase db, final String projectName, final String user) {
-        ProjectEntity project = new ProjectEntity(projectName, user);
+    private static void addProject(final AppDataBase db, final Long id, final String projectName, final String user) {
+        ProjectEntity project = new ProjectEntity(id, projectName, user);
         db.projectDao().insert(project);
     }
 
     private static void addActivity(final AppDataBase db, final String name, final Date start, final Date finish,
-                                   final String projectName) {
-        ActivityEntity activity = new ActivityEntity(name, start, finish, projectName);
+                                   final Long projectId) {
+        ActivityEntity activity = new ActivityEntity(name, start, finish, projectId);
         db.activityDao().insert(activity);
     }
 
@@ -50,13 +50,14 @@ public class DatabaseInitializer {
             e.printStackTrace();
         }
 
-        addProject(db,
+        addProject(db, 1L,
                 "myFirstProject", "marina@gmail.com");
-        addProject(db,
+        addProject(db, 2L,
                 "mySecondProject", "marina@gmail.com" );
-        addProject(db,
+        addProject(db, 3L,
                 "myThirdProject", "marina@gmail.com");
-        addProject(db, "myCodingProject", "pete@shart.ch");
+        addProject(db, 4L,
+                "myCodingProject", "pete@shart.ch");
 
         try {
             // Let's ensure that the projects are already stored in the database before we continue.
@@ -68,14 +69,14 @@ public class DatabaseInitializer {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/M/yyyy hh:mm:ss");
         addActivity(db,
                 "Planning", simpleDateFormat.parse("28/10/2020 14:15:30") , simpleDateFormat.parse("28/10/2020 15:15:30"),
-                "myFirstProject");
+                1L);
 
         addActivity(db,
                 "Coding", simpleDateFormat.parse("28/10/2020 15:25:30") , simpleDateFormat.parse("28/10/2020 17:15:30"),
-                "myFirstProject");
+                1L);
         addActivity(db,
                 "Design", simpleDateFormat.parse("28/10/2020 18:25:30") , simpleDateFormat.parse("28/10/2020 19:15:30"),
-                "mySecondProject");
+                1L);
     }
 
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
