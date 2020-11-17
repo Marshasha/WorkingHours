@@ -57,9 +57,8 @@ public class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAdapter.Vie
         if (item.getClass().equals(ProjectEntity.class))
             holder.mTextView.setText(((ProjectEntity) item).getProjectName());
         if (item.getClass().equals(ActivityEntity.class))
-            holder.mTextView.setText(new StringBuilder().append(((ActivityEntity) item).getDateStart()).append(" - ")
-                    .append(((ActivityEntity) item).getDateFinish()).append(" ").append(((ActivityEntity) item).getActivityName())
-                    .append(" ").append(((ActivityEntity) item).getDuration()).toString());
+            holder.mTextView.setText(new StringBuilder().append(((ActivityEntity)item).getActivityName()).append(" ")
+                    .append(((ActivityEntity)item).getDuration()).toString());
     }
 
     @Override

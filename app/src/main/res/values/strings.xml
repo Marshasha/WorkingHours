@@ -85,5 +85,8 @@
     <string name="button_stop">Stop</string>
     <string name="startTime">You\'ve started working at</string>
     <string name="endTime">You\'ve finished work at</string>
+    <string name="title_activity_delete">Delete activity</string>
+    <string name="activity_delete_msg">Do you like to delete this activity?</string>
+    <string name="activity_deleted">Activity deleted</string>
 
 </resources>

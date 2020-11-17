@@ -164,7 +164,7 @@ public class AddActivityInProject extends BaseActivity {
 
         long elapsedSeconds = different / secondsInMilli;
 
-        String duration = elapsedDays + "%d d" + elapsedHours + "%d h " + elapsedMinutes + " %d min" + elapsedSeconds + "%d sec";
+        String duration = elapsedDays + " d" + elapsedHours + " h" + elapsedMinutes + " min" + elapsedSeconds + " sec";
 
         return duration;
     }

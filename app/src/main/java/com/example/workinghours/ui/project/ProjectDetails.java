@@ -1,13 +1,18 @@
 package com.example.workinghours.ui.project;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.GravityCompat;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -20,6 +25,7 @@ import com.example.workinghours.database.entity.ActivityEntity;
 import com.example.workinghours.database.entity.ProjectEntity;
 import com.example.workinghours.ui.BaseActivity;
 import com.example.workinghours.ui.activity.AddActivityInProject;
+import com.example.workinghours.util.OnAsyncEventListener;
 import com.example.workinghours.util.RecyclerViewItemClickListener;
 import com.example.workinghours.viewmodel.activity.ActivityListViewModel;
 import com.example.workinghours.viewmodel.project.ProjectViewModel;
@@ -36,6 +42,7 @@ public class ProjectDetails extends BaseActivity {
     private ProjectViewModel viewModelP;
     private View playButton;
     private View addButton;
+    private Long projectId;
 
     private List<ActivityEntity> activities;
     private RecyclerAdapter<ActivityEntity> adapter;
@@ -48,7 +55,7 @@ public class ProjectDetails extends BaseActivity {
         getLayoutInflater().inflate(R.layout.activity_project_page, frameLayout);
 
         navigationView.setCheckedItem(position);
-        Long projectId = getIntent().getLongExtra("projectId", 0L);
+        projectId = getIntent().getLongExtra("projectId", 0L);
 
         initiateView();
 
@@ -79,9 +86,6 @@ public class ProjectDetails extends BaseActivity {
                 LinearLayoutManager.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
 
-        SharedPreferences settings = getSharedPreferences(BaseActivity.PREFS_NAME, 0);
-        Long projectId = settings.getLong(BaseActivity.PREFS_PROJECT, 0L);
-
         activities = new ArrayList<>();
         adapter = new RecyclerAdapter<>(new RecyclerViewItemClickListener() {
             @Override
@@ -100,7 +104,10 @@ public class ProjectDetails extends BaseActivity {
 
             @Override
             public void onItemLongClick(View v, int position) {
-                // to add code to delete activity
+                Log.d(TAG, "longClicked position:" + position);
+                Log.d(TAG, "longClicked on: " + activities.get(position).getActivityName());
+
+                createDeleteDialog(position);
             }
         });
 
@@ -132,6 +139,7 @@ public class ProjectDetails extends BaseActivity {
 
         playButton.setOnClickListener(view -> startChronometer());
         addButton.setOnClickListener(view -> addActivityInProject());
+
     }
 
     private void addActivityInProject(){
@@ -160,6 +168,39 @@ public class ProjectDetails extends BaseActivity {
         */
         finish();
         return super.onNavigationItemSelected(item);
+    }
+
+    @SuppressLint("StringFormatInvalid")
+    private void createDeleteDialog(final int position) {
+        final ActivityEntity activity = activities.get(position);
+        LayoutInflater inflater = LayoutInflater.from(this);
+        final View view = inflater.inflate(R.layout.row_delete_item, null);
+        final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
+        alertDialog.setTitle(getString(R.string.title_activity_delete));
+        alertDialog.setCancelable(false);
+
+        final TextView deleteMessage = view.findViewById(R.id.tv_delete_item);
+        deleteMessage.setText(String.format(getString(R.string.activity_delete_msg), activity.getActivityName()));
+
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.action_accept), (dialog, which) -> {
+            Toast toast = Toast.makeText(this, getString(R.string.activity_deleted), Toast.LENGTH_LONG);
+            viewModelA.deleteActivity(activity, new OnAsyncEventListener() {
+                @Override
+                public void onSuccess() {
+                    Log.d(TAG, "deleteActivity: success");
+                }
+
+                @Override
+                public void onFailure(Exception e) {
+                    Log.d(TAG, "deleteActivity: failure", e);
+                }
+            });
+            toast.show();
+        });
+
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, getString(R.string.action_cancel), (dialog, which) -> alertDialog.dismiss());
+        alertDialog.setView(view);
+        alertDialog.show();
     }
 
 }

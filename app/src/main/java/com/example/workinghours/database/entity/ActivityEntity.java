@@ -39,33 +39,9 @@ public class ActivityEntity {
 
     }
 
-    public String calculateDuration(Date start, Date finish){
-
-        long different = finish.getTime() - start.getTime();
-
-        long secondsInMilli = 1000;
-        long minutesInMilli = secondsInMilli * 60;
-        long hoursInMilli = minutesInMilli * 60;
-        long daysInMilli = hoursInMilli * 24;
-
-        long elapsedDays = different / daysInMilli;
-        different = different % daysInMilli;
-
-        long elapsedHours = different / hoursInMilli;
-        different = different % hoursInMilli;
-
-        long elapsedMinutes = different / minutesInMilli;
-        different = different % minutesInMilli;
-
-        long elapsedSeconds = different / secondsInMilli;
-
-        String duration = elapsedDays + "%d d" + elapsedHours + "%d h " + elapsedMinutes + " %d min" + elapsedSeconds + "%d sec";
-
-        return duration;
-    }
 
     public String getDuration(){
-       return calculateDuration(getDateStart(), getDateFinish());
+       return duration;
     }
 
     public void setDuration(String duration){
