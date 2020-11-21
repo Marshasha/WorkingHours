@@ -11,7 +11,9 @@ import com.example.workinghours.R;
 import com.example.workinghours.adapter.RecyclerAdapter;
 import com.example.workinghours.database.entity.ProjectEntity;
 
+
 public class MainActivity extends BaseActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

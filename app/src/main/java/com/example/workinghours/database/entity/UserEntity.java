@@ -1,18 +1,19 @@
 package com.example.workinghours.database.entity;
 
 import androidx.annotation.NonNull;
-import androidx.room.Entity;
-import androidx.room.Ignore;
 
-@Entity(tableName = "users", primaryKeys = {"email"})
+import com.google.firebase.database.Exclude;
+
+import java.util.HashMap;
+import java.util.Map;
+
+
 public class UserEntity implements Comparable {
 
-    @NonNull
+    private String id;
     private String email;
-
     private String password;
 
-    @Ignore
     public UserEntity() {
     }
 
@@ -21,7 +22,11 @@ public class UserEntity implements Comparable {
         this.password = password;
     }
 
-    @NonNull
+    @Exclude
+    public String getId(){ return id;}
+
+    public void setId(String id){this.id=id;}
+
     public String getEmail() {
         return email;
     }
@@ -30,6 +35,7 @@ public class UserEntity implements Comparable {
         this.email = email;
     }
 
+    @Exclude
     public String getPassword() {
         return password;
     }
@@ -53,5 +59,13 @@ public class UserEntity implements Comparable {
     @Override
     public int compareTo(@NonNull Object o) {
         return toString().compareTo(o.toString());
+    }
+
+    @Exclude
+    public Map<String, Object> toMap(){
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("email", email);
+
+        return result;
     }
 }

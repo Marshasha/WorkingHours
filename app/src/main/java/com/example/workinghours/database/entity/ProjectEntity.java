@@ -8,22 +8,8 @@ import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-@Entity(tableName = "projects",
-        foreignKeys =
-        @ForeignKey(
-                entity = UserEntity.class,
-                parentColumns = "email",
-                childColumns = "user",
-                onDelete = ForeignKey.CASCADE
-        ),
-        indices = {
-                @Index(
-                        value = {"user"}
-                )}
-)
 public class ProjectEntity {
 
-    @PrimaryKey(autoGenerate = true)
     private long id;
 
     @ColumnInfo(name = "projectName")
