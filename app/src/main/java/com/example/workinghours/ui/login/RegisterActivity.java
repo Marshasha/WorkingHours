@@ -10,9 +10,10 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.workinghours.BaseApp;
 import com.example.workinghours.R;
-import com.example.workinghours.database.async.users.CreateUser;
 import com.example.workinghours.database.entity.UserEntity;
+import com.example.workinghours.database.repository.UserRepository;
 import com.example.workinghours.ui.BaseActivity;
 import com.example.workinghours.ui.MainActivity;
 import com.example.workinghours.util.OnAsyncEventListener;
@@ -20,6 +21,8 @@ import com.example.workinghours.util.OnAsyncEventListener;
 public class RegisterActivity extends AppCompatActivity {
 
     private static final String TAG = "RegisterActivity";
+
+    private UserRepository repository;
 
     private Toast toast;
 
@@ -31,7 +34,10 @@ public class RegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        repository = ((BaseApp)getApplication()).getUserRepository();
+
         initializeForm();
+
         toast = Toast.makeText(this, getString(R.string.user_created), Toast.LENGTH_LONG);
     }
 
@@ -63,7 +69,7 @@ public class RegisterActivity extends AppCompatActivity {
         }
         UserEntity newUser = new UserEntity(email, pwd);
 
-        new CreateUser(getApplication(), new OnAsyncEventListener() {
+        repository.register(newUser, new OnAsyncEventListener() {
             @Override
             public void onSuccess() {
                 Log.d(TAG, "createUserWithEmail: success");
@@ -75,14 +81,11 @@ public class RegisterActivity extends AppCompatActivity {
                 Log.d(TAG, "createUserWithEmail: failure", e);
                 setResponse(false);
             }
-        }).execute(newUser);
+        });
     }
 
     private void setResponse(Boolean response) {
         if (response) {
-            final SharedPreferences.Editor editor = getSharedPreferences(BaseActivity.PREFS_NAME, 0).edit();
-            editor.putString(BaseActivity.PREFS_USER, etEmail.getText().toString());
-            editor.apply();
             toast.show();
             Intent intent = new Intent(RegisterActivity.this, MainActivity.class);
             startActivity(intent);

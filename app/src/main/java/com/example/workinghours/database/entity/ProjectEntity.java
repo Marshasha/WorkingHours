@@ -1,70 +1,49 @@
 package com.example.workinghours.database.entity;
 
-import androidx.annotation.NonNull;
-import androidx.room.ColumnInfo;
-import androidx.room.Entity;
-import androidx.room.ForeignKey;
-import androidx.room.Ignore;
-import androidx.room.Index;
-import androidx.room.PrimaryKey;
+
+import com.google.firebase.database.Exclude;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class ProjectEntity {
 
-    private long id;
-
-    @ColumnInfo(name = "projectName")
-    @NonNull
+    private String projectId;
     private String projectName;
     private String user;
 
-    @Ignore
     public ProjectEntity() {
     }
-
-    public ProjectEntity(@NonNull String projectName, String user) {
-
-        this.projectName=projectName;
-        this.user=user;
-    }
-
-    @Ignore
+    /*
     public ProjectEntity(@NonNull Long id, @NonNull String projectName, String user) {
         this.id = id;
-        this.projectName=projectName;
+        this.projectName=projectName; // Why we do not need the constructor?
         this.user=user;
-    }
+    } */
 
-    public long getId() {
-        return id;
-    }
+    @Exclude
+    public String getId() { return projectId; }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+    public void setId(String id) { this.projectId = id; }
 
-    @NonNull
-    public String getProjectName() {
-        return projectName;
-    }
+    public String getProjectName() { return projectName; }
 
-    public void setProjectName(@NonNull String projectName) {
-        this.projectName = projectName;
-    }
+    public void setProjectName(String projectName) { this.projectName = projectName; }
 
-    public String getUser() {
-        return user;
-    }
+    @Exclude
+    public String getUser() { return user; }
 
-    public void setUser(String user) {
-        this.user = user;
-    }
+    public void setUser(String user) { this.user = user; }
 
     @Override
-    public String toString() {
-        return  projectName;
+    public String toString() { return  projectName; }
+
+    @Exclude
+    public Map<String, Object> toMap(){
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("projectName", projectName);
+
+        return result;
     }
 
-    public void setName(String projectName) {
-        this.projectName=projectName;
-    }
 }
