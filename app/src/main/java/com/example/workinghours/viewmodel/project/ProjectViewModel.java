@@ -23,7 +23,7 @@ public class ProjectViewModel extends AndroidViewModel {
     // MediatorLiveData can observe other LiveData objects and react on their emissions.
     private final MediatorLiveData<ProjectEntity> observableProject;
 
-    public ProjectViewModel(@NonNull Application application, final Long projectId,
+    public ProjectViewModel(@NonNull Application application, final String projectId,
                             ProjectRepository projectRepository) {
         super(application);
 
@@ -35,7 +35,7 @@ public class ProjectViewModel extends AndroidViewModel {
         // set by default null, until we get data from the database.
         observableProject.setValue(null);
 
-        LiveData<ProjectEntity> project = repository.getProjectById(projectId, application);
+        LiveData<ProjectEntity> project = repository.getProjectById(projectId);
 
         // observe the changes of the project entity from the database and forward them
         observableProject.addSource(project, observableProject::setValue);
@@ -49,11 +49,11 @@ public class ProjectViewModel extends AndroidViewModel {
         @NonNull
         private final Application application;
 
-        private final Long projectId;
+        private final String projectId;
 
         private final ProjectRepository repository;
 
-        public Factory(@NonNull Application application, Long id) {
+        public Factory(@NonNull Application application, String id) {
             this.application = application;
             this.projectId = id;
             repository = ((BaseApp) application).getProjectRepository();
@@ -74,15 +74,18 @@ public class ProjectViewModel extends AndroidViewModel {
     }
 
     public void createProject(ProjectEntity project, OnAsyncEventListener callback) {
-        repository.insert(project, callback, application);
+        ((BaseApp)getApplication()).getProjectRepository()
+        .insert(project, callback);
     }
 
     public void updateProject(ProjectEntity project, OnAsyncEventListener callback) {
-        repository.update(project, callback, application);
+        ((BaseApp)getApplication()).getProjectRepository()
+                .update(project, callback);
     }
 
     public void deleteProject(ProjectEntity project, OnAsyncEventListener callback) {
-        repository.delete(project, callback, application);
+        ((BaseApp)getApplication()).getProjectRepository()
+                .delete(project, callback);
 
     }
 }

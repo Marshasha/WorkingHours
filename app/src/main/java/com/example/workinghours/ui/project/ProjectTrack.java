@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.workinghours.R;
@@ -37,7 +38,7 @@ public class ProjectTrack extends BaseActivity {
     private Button stopButton;
     private EditText input;
     private ProjectEntity project;
-    private Long projectId;
+    private String projectId;
     private Toast toast;
     private ProjectViewModel viewModelP;
     private ActivityViewModel viewModelA;
@@ -55,13 +56,13 @@ public class ProjectTrack extends BaseActivity {
         super.onCreate(savedInstanceState);
         getLayoutInflater().inflate(R.layout.activity_project_track, frameLayout);
         navigationView.setCheckedItem(position);
-        projectId = getIntent().getLongExtra("projectId", 0L);
+        projectId = getIntent().getStringExtra("projectId");
 
         initiateView();
 
         ProjectViewModel.Factory factoryP = new ProjectViewModel.Factory(
                 getApplication(), projectId);
-        viewModelP = ViewModelProviders.of(this, factoryP).get(ProjectViewModel.class);
+        viewModelP = new ViewModelProvider(this, factoryP).get(ProjectViewModel.class);
         viewModelP.getProject().observe(this, projectEntity -> {
             if(projectEntity != null){
                 project = projectEntity;
@@ -69,11 +70,11 @@ public class ProjectTrack extends BaseActivity {
             }
         });
 
-        int activityId = getIntent().getIntExtra("activityId", 0);
+        String activityId = getIntent().getStringExtra("activityId");
 
         ActivityViewModel.Factory factoryA = new ActivityViewModel.Factory(
                 getApplication(), activityId);
-        viewModelA = ViewModelProviders.of(this, factoryA).get(ActivityViewModel.class);
+        viewModelA = new ViewModelProvider(this, factoryA).get(ActivityViewModel.class);
         viewModelA.getActivity().observe(this, activityEntity -> {
             if(activityEntity != null){
                 activity = activityEntity;

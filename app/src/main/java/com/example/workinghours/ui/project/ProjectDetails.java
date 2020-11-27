@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.GravityCompat;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -29,6 +30,7 @@ import com.example.workinghours.util.OnAsyncEventListener;
 import com.example.workinghours.util.RecyclerViewItemClickListener;
 import com.example.workinghours.viewmodel.activity.ActivityListViewModel;
 import com.example.workinghours.viewmodel.project.ProjectViewModel;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +44,7 @@ public class ProjectDetails extends BaseActivity {
     private ProjectViewModel viewModelP;
     private View playButton;
     private View addButton;
-    private Long projectId;
+    private String projectId;
 
     private List<ActivityEntity> activities;
     private RecyclerAdapter<ActivityEntity> adapter;
@@ -55,13 +57,13 @@ public class ProjectDetails extends BaseActivity {
         getLayoutInflater().inflate(R.layout.activity_project_page, frameLayout);
 
         navigationView.setCheckedItem(position);
-        projectId = getIntent().getLongExtra("projectId", 0L);
+        projectId = getIntent().getStringExtra("projectId");
 
         initiateView();
 
         ProjectViewModel.Factory factoryP = new ProjectViewModel.Factory(
                 getApplication(), projectId);
-        viewModelP = ViewModelProviders.of(this, factoryP).get(ProjectViewModel.class);
+        viewModelP = new ViewModelProvider(this, factoryP).get(ProjectViewModel.class);
         viewModelP.getProject().observe(this, projectEntity -> {
             if(projectEntity != null){
                 project = projectEntity;
@@ -98,7 +100,7 @@ public class ProjectDetails extends BaseActivity {
                         Intent.FLAG_ACTIVITY_NO_ANIMATION |
                                 Intent.FLAG_ACTIVITY_NO_HISTORY
                 );
-                intent.putExtra("activityId", activities.get(position).getId());
+                intent.putExtra("activityId", activities.get(position).getActivityId());
                 startActivity(intent);
             }
 
@@ -111,8 +113,9 @@ public class ProjectDetails extends BaseActivity {
             }
         });
 
-        ActivityListViewModel.Factory factoryA = new ActivityListViewModel.Factory(getApplication(), projectId);
-        viewModelA = ViewModelProviders.of(this, factoryA).get(ActivityListViewModel.class);
+        ActivityListViewModel.Factory factoryA = new ActivityListViewModel.Factory(getApplication(),
+                FirebaseAuth.getInstance().getCurrentUser().getUid());
+        viewModelA = new ViewModelProvider(this, factoryA).get(ActivityListViewModel.class);
         viewModelA.getProjectActivities().observe(this, activityEntities -> {
             if(activityEntities != null){
                 activities = activityEntities;

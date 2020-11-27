@@ -27,7 +27,7 @@ public class ActivityListViewModel extends AndroidViewModel {
     private final MediatorLiveData<List<ActivityEntity>> observableProjectActivities;
 
     public ActivityListViewModel(@NonNull Application application,
-                                final Long projectId,
+                                final String projectId,
                                 ProjectRepository projectRepository,
                                 ActivityRepository activityRepository) {
         super(application);
@@ -40,7 +40,7 @@ public class ActivityListViewModel extends AndroidViewModel {
         // set by default null, until we get data from the database.
         observableProjectActivities.setValue(null);
 
-        LiveData<List<ActivityEntity>> projectActivities = repository.getByProject(projectId, application);
+        LiveData<List<ActivityEntity>> projectActivities = repository.getByProject(projectId);
 
         // observe the changes of the entities from the database and forward them
         observableProjectActivities.addSource(projectActivities, observableProjectActivities::setValue);
@@ -54,13 +54,13 @@ public class ActivityListViewModel extends AndroidViewModel {
         @NonNull
         private final Application application;
 
-        private final Long projectId;
+        private final String projectId;
 
         private final ProjectRepository projectRepository;
 
         private final ActivityRepository activityRepository;
 
-        public Factory(@NonNull Application application, Long projectId) {
+        public Factory(@NonNull Application application, String projectId) {
             this.application = application;
             this.projectId = projectId;
             projectRepository = ((BaseApp) application).getProjectRepository();
@@ -82,7 +82,8 @@ public class ActivityListViewModel extends AndroidViewModel {
     }
 
     public void deleteActivity(ActivityEntity activity, OnAsyncEventListener callback) {
-        repository.delete(activity, callback, application);
+        ((BaseApp)getApplication()).getActivityRepository()
+                .delete(activity, callback);
     }
 
 }

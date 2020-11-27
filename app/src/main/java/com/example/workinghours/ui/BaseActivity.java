@@ -21,6 +21,7 @@ import com.example.workinghours.ui.project.AddProjectActivity;
 import com.example.workinghours.ui.project.AddProjectPage;
 import com.example.workinghours.ui.report.Report;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class BaseActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -130,9 +131,7 @@ public class BaseActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void logout() {
-        SharedPreferences.Editor editor = getSharedPreferences(BaseActivity.PREFS_NAME, 0).edit();
-        editor.remove(BaseActivity.PREFS_USER);
-        editor.apply();
+        FirebaseAuth.getInstance().signOut();
 
         Intent intent = new Intent(this, LoginActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.workinghours.R;
@@ -46,8 +47,8 @@ public class AddProjectPage extends BaseActivity {
             toast.show();
         });
 
-        Long projectId = getIntent().getLongExtra("projectId", 0L);
-        if (projectId == 0L) {
+        String projectId = getIntent().getStringExtra("projectId");
+        if (projectId == null) {
             setTitle(getString(R.string.project_create));
             toast = Toast.makeText(this, getString(R.string.project_created), Toast.LENGTH_LONG);
             isEditMode = false;
@@ -60,7 +61,7 @@ public class AddProjectPage extends BaseActivity {
 
         ProjectViewModel.Factory factory = new ProjectViewModel.Factory(
                 getApplication(), projectId);
-        viewModel = ViewModelProviders.of(this, factory).get(ProjectViewModel.class);
+        viewModel = new ViewModelProvider(this, factory).get(ProjectViewModel.class);
         if (isEditMode) {
             viewModel.getProject().observe(this, projectEntity -> {
                 if (projectEntity != null) {
@@ -76,7 +77,7 @@ public class AddProjectPage extends BaseActivity {
     private void saveChanges(String projectName) {
         if (isEditMode) {
             if(!"".equals(projectName)) {
-                project.setName(projectName);
+                project.setProjectName(projectName);
                 viewModel.updateProject(project, new OnAsyncEventListener() {
                     @Override
                     public void onSuccess() {
@@ -92,7 +93,7 @@ public class AddProjectPage extends BaseActivity {
         } else {
             ProjectEntity newProject = new ProjectEntity();
             newProject.setUser(user);
-            newProject.setName(projectName);
+            newProject.setProjectName(projectName);
 
             viewModel.createProject(newProject, new OnAsyncEventListener() {
                 @Override

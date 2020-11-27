@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.view.GravityCompat;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -27,6 +28,7 @@ import com.example.workinghours.util.OnAsyncEventListener;
 import com.example.workinghours.util.RecyclerViewItemClickListener;
 import com.example.workinghours.viewmodel.project.ProjectListViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -95,8 +97,8 @@ public class AddProjectActivity extends BaseActivity {
         });
 
         ProjectListViewModel.Factory factory = new ProjectListViewModel.Factory(
-                getApplication(), user);
-        viewModel = ViewModelProviders.of(this, factory).get(ProjectListViewModel.class);
+                getApplication(), FirebaseAuth.getInstance().getCurrentUser().getUid());
+        viewModel = new ViewModelProvider(this, factory).get(ProjectListViewModel.class);
         viewModel.getUserProjects().observe(this, projectEntities -> {
             if (projectEntities != null) {
                 projects = projectEntities;
