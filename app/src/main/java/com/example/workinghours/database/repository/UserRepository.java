@@ -1,8 +1,5 @@
 package com.example.workinghours.database.repository;
 
-import android.app.Application;
-import android.content.Context;
-
 import androidx.lifecycle.LiveData;
 
 import com.example.workinghours.database.firebase.UserLiveData;
@@ -13,13 +10,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import android.util.Log;
 
-import com.example.workinghours.database.AppDataBase;
 import com.example.workinghours.database.entity.UserEntity;
 import com.example.workinghours.util.OnAsyncEventListener;
-import com.example.workinghours.BaseApp;
-
-
-import java.util.List;
 
 public class UserRepository {
 

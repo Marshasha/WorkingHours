@@ -24,7 +24,7 @@ public class ActivityViewModel extends AndroidViewModel {
     private final MediatorLiveData<ActivityEntity> observableActivity;
 
     public ActivityViewModel(@NonNull Application application,
-                            final int activityId, ActivityRepository activityRepository) {
+                            final String activityId, ActivityRepository activityRepository) {
         super(application);
 
         this.application = application;
@@ -35,7 +35,7 @@ public class ActivityViewModel extends AndroidViewModel {
         // set by default null, until we get data from the database.
         observableActivity.setValue(null);
 
-        LiveData<ActivityEntity> activity = repository.getActivity(activityId, application);
+        LiveData<ActivityEntity> activity = repository.getActivity(activityId);
 
         // observe the changes of the activity entity from the database and forward them
         observableActivity.addSource(activity, observableActivity::setValue);
@@ -49,11 +49,11 @@ public class ActivityViewModel extends AndroidViewModel {
         @NonNull
         private final Application application;
 
-        private final int activityId;
+        private final String activityId;
 
         private final ActivityRepository repository;
 
-        public Factory(@NonNull Application application, int activityId) {
+        public Factory(@NonNull Application application, String activityId) {
             this.application = application;
             this.activityId = activityId;
             repository = ((BaseApp) application).getActivityRepository();
@@ -74,14 +74,14 @@ public class ActivityViewModel extends AndroidViewModel {
     }
 
     public void createActivity(ActivityEntity activity, OnAsyncEventListener callback) {
-        repository.insert(activity, callback, application);
+        ((BaseApp)getApplication()).getActivityRepository()
+                .insert(activity, callback);
     }
 
     public void updateActivity(ActivityEntity activity, OnAsyncEventListener callback) {
-        repository.update(activity, callback, application);
+        ((BaseApp)getApplication()).getActivityRepository()
+                .update(activity, callback);
     }
 
-    public void deleteActivity(ActivityEntity activity, OnAsyncEventListener callback) {
-        repository.delete(activity, callback, application);
-    }
+
 }

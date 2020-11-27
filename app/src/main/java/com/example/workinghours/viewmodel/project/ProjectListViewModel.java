@@ -43,7 +43,7 @@ public class ProjectListViewModel extends AndroidViewModel {
         // set by default null, until we get data from the database.
         observableProjects.setValue(null);
 
-        LiveData<List<ProjectEntity>> projects = repository.getProjectsByUser(userId, application);
+        LiveData<List<ProjectEntity>> projects = repository.getProjectsByUser(userId);
 
         // observe the changes of the entities from the database and forward them
         observableProjects.addSource(projects, observableProjects::setValue);
@@ -78,7 +78,8 @@ public class ProjectListViewModel extends AndroidViewModel {
     }
 
     public void deleteProject(ProjectEntity project, OnAsyncEventListener callback){
-        repository.delete(project, callback, application);
+        ((BaseApp)getApplication()).getProjectRepository()
+                .delete(project, callback);
     }
 
     public LiveData<List<ProjectEntity>> getUserProjects(){

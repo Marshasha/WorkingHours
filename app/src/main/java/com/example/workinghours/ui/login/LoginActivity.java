@@ -1,7 +1,6 @@
 package com.example.workinghours.ui.login;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -9,19 +8,14 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.workinghours.R;
-import com.example.workinghours.database.AppDataBase;
 import com.example.workinghours.database.repository.UserRepository;
-import com.example.workinghours.ui.BaseActivity;
 import com.example.workinghours.ui.MainActivity;
 import com.example.workinghours.BaseApp;
 
-import static com.example.workinghours.database.AppDataBase.initializeDemoData;
 
 public class LoginActivity extends AppCompatActivity {
 

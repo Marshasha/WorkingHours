@@ -30,7 +30,7 @@ public class AddActivityInProject extends BaseActivity {
     private static final String TAG = "AddActivityInProject";
 
     private ActivityEntity activity;
-    private Long projectId;
+    private String projectId;
     private boolean isEditMode;
     private Toast toast;
     private EditText etActivityName;
@@ -50,7 +50,7 @@ public class AddActivityInProject extends BaseActivity {
 
         navigationView.setCheckedItem(position);
 
-        projectId = getIntent().getLongExtra("projectId", 0L);
+        projectId = getIntent().getStringExtra("projectId");
 
         etActivityName = findViewById(R.id.textView_ActivityName);
         startTimePicker = findViewById(R.id.startTime);
@@ -69,8 +69,8 @@ public class AddActivityInProject extends BaseActivity {
             toast.show();
         });
 
-        int activityId = getIntent().getIntExtra("activityId", 0);
-        if (activityId == 0) {
+        String activityId = getIntent().getStringExtra("activityId");
+        if (activityId == null) {
             setTitle(getString(R.string.activity_create));
             toast = Toast.makeText(this, getString(R.string.activity_created), Toast.LENGTH_LONG);
             isEditMode = false;

@@ -67,14 +67,35 @@ public class ActivityRepository {
                 });
     }
 
-    public void update(final ActivityEntity activity, OnAsyncEventListener callback,
-                       Application application) {
-        new UpdateActivity(application, callback).execute(activity);
+    public void update(final ActivityEntity activity, OnAsyncEventListener callback){
+        FirebaseDatabase.getInstance()
+                .getReference("projects")
+                .child(activity.getProjectId())
+                .child("activities")
+                .child(activity.getActivityId())
+                .updateChildren(activity.toMap(), (databaseError, databaseReference) -> {
+                    if (databaseError != null) {
+                        callback.onFailure(databaseError.toException());
+                    } else {
+                        callback.onSuccess();
+                    }
+                });
+
     }
 
-    public void delete(final ActivityEntity activity, OnAsyncEventListener callback,
-                       Application application) {
-        new DeleteActivity(application, callback).execute(activity);
+    public void delete(final ActivityEntity activity, OnAsyncEventListener callback){
+        FirebaseDatabase.getInstance()
+        .getReference("projects")
+        .child(activity.getProjectId())
+        .child("activities")
+        .child(activity.getActivityId())
+        .removeValue((databaseError, databaseReference) -> {
+            if (databaseError != null) {
+                callback.onFailure(databaseError.toException());
+            } else {
+                callback.onSuccess();
+            }
+        });
     }
 
 

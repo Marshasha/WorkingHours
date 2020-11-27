@@ -1,17 +1,11 @@
 package com.example.workinghours.database.repository;
 
-import android.app.Application;
-import android.content.Context;
-
 import androidx.lifecycle.LiveData;
-
-import com.example.workinghours.database.AppDataBase;
 
 import com.example.workinghours.database.entity.ProjectEntity;
 import com.example.workinghours.database.firebase.ProjectListLiveData;
 import com.example.workinghours.database.firebase.ProjectLiveData;
 import com.example.workinghours.util.OnAsyncEventListener;
-import com.example.workinghours.BaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
