@@ -16,8 +16,6 @@ import com.example.workinghours.BaseApp;
 
 public class ActivityViewModel extends AndroidViewModel {
 
-    private Application application;
-
     private ActivityRepository repository;
 
     // MediatorLiveData can observe other LiveData objects and react on their emissions.
@@ -27,18 +25,18 @@ public class ActivityViewModel extends AndroidViewModel {
                             final String activityId, ActivityRepository activityRepository) {
         super(application);
 
-        this.application = application;
-
         repository = activityRepository;
 
         observableActivity = new MediatorLiveData<>();
         // set by default null, until we get data from the database.
         observableActivity.setValue(null);
 
-        LiveData<ActivityEntity> activity = repository.getActivity(activityId);
+        if(activityId != null) {
+            LiveData<ActivityEntity> activity = repository.getActivity(activityId);
 
-        // observe the changes of the activity entity from the database and forward them
-        observableActivity.addSource(activity, observableActivity::setValue);
+            // observe the changes of the activity entity from the database and forward them
+            observableActivity.addSource(activity, observableActivity::setValue);
+        }
     }
 
     /**

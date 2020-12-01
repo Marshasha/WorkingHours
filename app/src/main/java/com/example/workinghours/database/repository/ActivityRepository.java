@@ -33,7 +33,7 @@ public class ActivityRepository {
     public LiveData<ActivityEntity> getActivity(final String activityId) {
         DatabaseReference reference = FirebaseDatabase.getInstance()
                 .getReference("projects")
-                .child(FirebaseAuth.getInstance().getCurrentUser().getUid()) // Is it valide???
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .child("activities")
                 .child(activityId);
         return new ActivityLiveData(reference);

@@ -40,7 +40,7 @@ public class UserRepository {
 
     public LiveData<UserEntity> getUser(final String userId) {
         DatabaseReference reference = FirebaseDatabase.getInstance()
-                .getReference("users")
+                .getReference("clients")
                 .child(userId);
         return new UserLiveData(reference);
     }
@@ -85,7 +85,7 @@ public class UserRepository {
 
     public void update(final UserEntity userEntity, OnAsyncEventListener callback){
             FirebaseDatabase.getInstance()
-            .getReference("users")
+            .getReference("clients")
             .child(userEntity.getId())
             .updateChildren(userEntity.toMap(), (databaseError, databaseReference) -> {
                 if (databaseError != null) {
@@ -101,7 +101,7 @@ public class UserRepository {
 
     public void delete(final UserEntity userEntity, OnAsyncEventListener callback){
           FirebaseDatabase.getInstance()
-          .getReference("users")
+          .getReference("clients")
           .child(userEntity.getId())
           .removeValue((databaseError, databaseReference) -> {
               if (databaseError != null) {

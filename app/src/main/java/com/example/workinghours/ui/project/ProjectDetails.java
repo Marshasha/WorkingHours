@@ -113,8 +113,8 @@ public class ProjectDetails extends BaseActivity {
             }
         });
 
-        ActivityListViewModel.Factory factoryA = new ActivityListViewModel.Factory(getApplication(),
-                FirebaseAuth.getInstance().getCurrentUser().getUid());
+        ActivityListViewModel.Factory factoryA = new ActivityListViewModel.Factory(
+                getApplication(), FirebaseAuth.getInstance().getCurrentUser().getUid());
         viewModelA = new ViewModelProvider(this, factoryA).get(ActivityListViewModel.class);
         viewModelA.getProjectActivities().observe(this, activityEntities -> {
             if(activityEntities != null){

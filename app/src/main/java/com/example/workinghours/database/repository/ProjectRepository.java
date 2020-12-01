@@ -31,24 +31,15 @@ public class ProjectRepository {
 
     public LiveData<List<ProjectEntity>> getProjectsByUser(final String user){
         DatabaseReference reference = FirebaseDatabase.getInstance()
-                .getReference("users")
+                .getReference("clients")
                 .child(user)
                 .child("projects");
         return new ProjectListLiveData(reference, user);
     }
 
-    /*
-    public LiveData<ProjectEntity> getProjectByName(final String projectName) {
-        DatabaseReference reference = FirebaseDatabase.getInstance()
-                .getReference("users")
-                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .child("projects")
-                .child(projectName);
-        return new ProjectLiveData(reference); */
-
     public LiveData<ProjectEntity> getProjectById(final String projectId){
         DatabaseReference reference = FirebaseDatabase.getInstance()
-                .getReference("users")
+                .getReference("clients")
                 .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
                 .child("projects")
                 .child(projectId);
@@ -58,12 +49,12 @@ public class ProjectRepository {
 
     public void insert(final ProjectEntity project, final OnAsyncEventListener callback){
         DatabaseReference reference = FirebaseDatabase.getInstance()
-                .getReference("users")
+                .getReference("clients")
                 .child(project.getUser())
                 .child("projects");
         String key = reference.push().getKey();
         FirebaseDatabase.getInstance()
-                .getReference("users")
+                .getReference("clients")
                 .child(project.getUser())
                 .child("projects")
                 .child(key)
@@ -78,7 +69,7 @@ public class ProjectRepository {
 
     public void update(final ProjectEntity project, OnAsyncEventListener callback){
            FirebaseDatabase.getInstance()
-           .getReference("users")
+           .getReference("clients")
            .child(project.getUser())
            .child("projects")
            .child(project.getId())
@@ -93,7 +84,7 @@ public class ProjectRepository {
 
     public void delete(final ProjectEntity project, OnAsyncEventListener callback){
            FirebaseDatabase.getInstance()
-           .getReference("users")
+           .getReference("clients")
            .child(project.getUser())
            .child("projects")
            .child(project.getId())

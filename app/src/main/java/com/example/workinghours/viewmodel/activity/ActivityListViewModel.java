@@ -19,7 +19,7 @@ import java.util.List;
 
 public class ActivityListViewModel extends AndroidViewModel {
 
-    private Application application;
+    private static final String TAG = "ActivityListViewModel";
 
     private ActivityRepository repository;
 
@@ -28,11 +28,8 @@ public class ActivityListViewModel extends AndroidViewModel {
 
     public ActivityListViewModel(@NonNull Application application,
                                 final String projectId,
-                                ProjectRepository projectRepository,
                                 ActivityRepository activityRepository) {
         super(application);
-
-        this.application = application;
 
         repository = activityRepository;
 
@@ -70,7 +67,7 @@ public class ActivityListViewModel extends AndroidViewModel {
         @Override
         public <T extends ViewModel> T create(Class<T> modelClass) {
             //noinspection unchecked
-            return (T) new ActivityListViewModel(application, projectId, projectRepository, activityRepository);
+            return (T) new ActivityListViewModel(application, projectId, activityRepository);
         }
     }
 
