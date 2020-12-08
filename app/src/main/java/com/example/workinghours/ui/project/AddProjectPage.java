@@ -15,6 +15,7 @@ import com.example.workinghours.database.entity.ProjectEntity;
 import com.example.workinghours.ui.BaseActivity;
 import com.example.workinghours.util.OnAsyncEventListener;
 import com.example.workinghours.viewmodel.project.ProjectViewModel;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class AddProjectPage extends BaseActivity {
 
@@ -35,8 +36,7 @@ public class AddProjectPage extends BaseActivity {
 
         navigationView.setCheckedItem(position);
 
-        SharedPreferences settings = getSharedPreferences(BaseActivity.PREFS_NAME, 0);
-        user = settings.getString(BaseActivity.PREFS_USER, null);
+        user = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
         etProjectName = findViewById(R.id.textView_ProjectName);
         etProjectName.requestFocus();

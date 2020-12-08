@@ -16,18 +16,17 @@ import com.example.workinghours.BaseApp;
 
 public class ActivityViewModel extends AndroidViewModel {
 
-    private Application application;
-
     private ActivityRepository repository;
+
 
     // MediatorLiveData can observe other LiveData objects and react on their emissions.
     private final MediatorLiveData<ActivityEntity> observableActivity;
 
     public ActivityViewModel(@NonNull Application application,
-                            final String activityId, ActivityRepository activityRepository) {
+                            final String activityId,
+                             final String projectId,
+                             ActivityRepository activityRepository) {
         super(application);
-
-        this.application = application;
 
         repository = activityRepository;
 
@@ -35,10 +34,12 @@ public class ActivityViewModel extends AndroidViewModel {
         // set by default null, until we get data from the database.
         observableActivity.setValue(null);
 
-        LiveData<ActivityEntity> activity = repository.getActivity(activityId);
+        if(activityId != null) {
+            LiveData<ActivityEntity> activity = repository.getActivity(activityId, projectId);
 
-        // observe the changes of the activity entity from the database and forward them
-        observableActivity.addSource(activity, observableActivity::setValue);
+            // observe the changes of the activity entity from the database and forward them
+            observableActivity.addSource(activity, observableActivity::setValue);
+        }
     }
 
     /**
@@ -51,18 +52,21 @@ public class ActivityViewModel extends AndroidViewModel {
 
         private final String activityId;
 
+        private final String projectId;
+
         private final ActivityRepository repository;
 
-        public Factory(@NonNull Application application, String activityId) {
+        public Factory(@NonNull Application application, String activityId, String projectId) {
             this.application = application;
             this.activityId = activityId;
+            this.projectId = projectId;
             repository = ((BaseApp) application).getActivityRepository();
         }
 
         @Override
         public <T extends ViewModel> T create(Class<T> modelClass) {
             //noinspection unchecked
-            return (T) new ActivityViewModel(application, activityId, repository);
+            return (T) new ActivityViewModel(application, activityId, projectId, repository);
         }
     }
 

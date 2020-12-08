@@ -73,7 +73,7 @@ public class ProjectTrack extends BaseActivity {
         String activityId = getIntent().getStringExtra("activityId");
 
         ActivityViewModel.Factory factoryA = new ActivityViewModel.Factory(
-                getApplication(), activityId);
+                getApplication(), activityId, projectId);
         viewModelA = new ViewModelProvider(this, factoryA).get(ActivityViewModel.class);
         viewModelA.getActivity().observe(this, activityEntity -> {
             if(activityEntity != null){

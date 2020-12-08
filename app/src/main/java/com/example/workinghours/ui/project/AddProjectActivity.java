@@ -58,9 +58,6 @@ public class AddProjectActivity extends BaseActivity {
                 LinearLayoutManager.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
 
-        SharedPreferences settings = getSharedPreferences(BaseActivity.PREFS_NAME, 0);
-        String user = settings.getString(BaseActivity.PREFS_USER, null);
-
         projects = new ArrayList<>();
         adapter = new RecyclerAdapter<>(new RecyclerViewItemClickListener() {
 
@@ -88,13 +85,9 @@ public class AddProjectActivity extends BaseActivity {
         });
 
         FloatingActionButton fab = findViewById(R.id.floatingActionButton);
-        fab.setOnClickListener(view -> {
-            Intent intent = new Intent(AddProjectActivity.this, AddProjectPage.class);
-            intent.setFlags(
-                    Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_NO_HISTORY
-            );
-            startActivity(intent);
-        });
+        fab.setOnClickListener(view -> startActivity (
+                new Intent(AddProjectActivity.this, AddProjectPage.class))
+        );
 
         ProjectListViewModel.Factory factory = new ProjectListViewModel.Factory(
                 getApplication(), FirebaseAuth.getInstance().getCurrentUser().getUid());

@@ -18,8 +18,6 @@ public class ProjectViewModel extends AndroidViewModel {
 
     private ProjectRepository repository;
 
-    private Application application;
-
     // MediatorLiveData can observe other LiveData objects and react on their emissions.
     private final MediatorLiveData<ProjectEntity> observableProject;
 
@@ -27,18 +25,18 @@ public class ProjectViewModel extends AndroidViewModel {
                             ProjectRepository projectRepository) {
         super(application);
 
-        this.application = application;
-
         repository = projectRepository;
 
         observableProject = new MediatorLiveData<>();
         // set by default null, until we get data from the database.
         observableProject.setValue(null);
 
-        LiveData<ProjectEntity> project = repository.getProjectById(projectId);
+        if(projectId != null) {
+            LiveData<ProjectEntity> project = repository.getProjectById(projectId);
 
-        // observe the changes of the project entity from the database and forward them
-        observableProject.addSource(project, observableProject::setValue);
+            // observe the changes of the project entity from the database and forward them
+            observableProject.addSource(project, observableProject::setValue);
+        }
     }
 
     /**

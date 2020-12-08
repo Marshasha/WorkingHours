@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -31,6 +32,7 @@ import com.example.workinghours.util.RecyclerViewItemClickListener;
 import com.example.workinghours.viewmodel.activity.ActivityListViewModel;
 import com.example.workinghours.viewmodel.project.ProjectViewModel;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,6 +76,25 @@ public class ProjectDetails extends BaseActivity {
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        menu.add(0, EDIT_PROJECT, Menu.NONE, getString(R.string.title_activity_edit_project))
+                .setIcon(R.drawable.ic_edit_white_24dp)
+                .setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == EDIT_PROJECT) {
+            Intent intent = new Intent(this, AddProjectPage.class);
+            intent.putExtra("projectId", project.getId());
+            startActivity(intent);
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     private void lunchActivitiesList(){
 
         /** 2nd part of the screen devoted to the list of activities bolonging to the project.
@@ -88,6 +109,8 @@ public class ProjectDetails extends BaseActivity {
                 LinearLayoutManager.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
 
+       String projectId = getIntent().getStringExtra("projectId");
+
         activities = new ArrayList<>();
         adapter = new RecyclerAdapter<>(new RecyclerViewItemClickListener() {
             @Override
@@ -96,10 +119,11 @@ public class ProjectDetails extends BaseActivity {
                 Log.d(TAG, "clicked on : " + activities.get(position).getActivityName());
 
                 Intent intent = new Intent (ProjectDetails.this, AddActivityInProject.class);
-                intent.setFlags(
-                        Intent.FLAG_ACTIVITY_NO_ANIMATION |
-                                Intent.FLAG_ACTIVITY_NO_HISTORY
-                );
+                Log.i(TAG, "Activity name " + activities.get(position).getActivityName());
+                Log.i(TAG, "Activity id " + activities.get(position).getActivityId());
+
+                intent.putExtra("projectId", project.getId());
+
                 intent.putExtra("activityId", activities.get(position).getActivityId());
                 startActivity(intent);
             }
@@ -113,12 +137,13 @@ public class ProjectDetails extends BaseActivity {
             }
         });
 
-        ActivityListViewModel.Factory factoryA = new ActivityListViewModel.Factory(getApplication(),
-                FirebaseAuth.getInstance().getCurrentUser().getUid());
+        ActivityListViewModel.Factory factoryA = new ActivityListViewModel.Factory(
+                getApplication(), projectId) ;
         viewModelA = new ViewModelProvider(this, factoryA).get(ActivityListViewModel.class);
         viewModelA.getProjectActivities().observe(this, activityEntities -> {
             if(activityEntities != null){
                 activities = activityEntities;
+                Log.i(TAG, "Activities list != null");
                 adapter.setData(activities);
             }
         });
