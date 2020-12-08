@@ -81,6 +81,7 @@
             android:value="com.example.workinghours.ui.project.ProjectDetails" />
         </activity>
 
+
         <activity
             android:name=".ui.activity.AddActivityInProject"
             android:label="@string/add_activity_name"

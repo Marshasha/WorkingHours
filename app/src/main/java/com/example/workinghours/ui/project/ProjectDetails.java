@@ -210,7 +210,7 @@ public class ProjectDetails extends BaseActivity {
         final TextView deleteMessage = view.findViewById(R.id.tv_delete_item);
         deleteMessage.setText(String.format(getString(R.string.activity_delete_msg), activity.getActivityName()));
 
-        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.action_accept), (dialog, which) -> {
+        alertDialog.setButton(AlertDialog.BUTTON_POSITIVE, getString(R.string.action_delete), (dialog, which) -> {
             Toast toast = Toast.makeText(this, getString(R.string.activity_deleted), Toast.LENGTH_LONG);
             viewModelA.deleteActivity(activity, new OnAsyncEventListener() {
                 @Override
