@@ -197,7 +197,7 @@ public class ProjectTrack extends BaseActivity {
 
         long elapsedSeconds = different / secondsInMilli;
 
-        String duration = elapsedDays + " d" + elapsedHours + "h " + elapsedMinutes + " min" + elapsedSeconds + " sec";
+        String duration = elapsedHours + " h " + elapsedMinutes + " min" + elapsedSeconds + " sec";
 
         return duration;
     }
