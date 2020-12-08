@@ -122,6 +122,8 @@ public class ProjectDetails extends BaseActivity {
                 Log.i(TAG, "Activity name " + activities.get(position).getActivityName());
                 Log.i(TAG, "Activity id " + activities.get(position).getActivityId());
 
+                intent.putExtra("projectId", project.getId());
+
                 intent.putExtra("activityId", activities.get(position).getActivityId());
                 startActivity(intent);
             }

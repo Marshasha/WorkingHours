@@ -30,10 +30,10 @@ public class ActivityRepository {
         return instance;
     }
 
-    public LiveData<ActivityEntity> getActivity(final String activityId) {
+    public LiveData<ActivityEntity> getActivity(final String activityId, final String projectId) {
         DatabaseReference reference = FirebaseDatabase.getInstance()
                 .getReference("projects")
-                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child(projectId)
                 .child("activities")
                 .child(activityId);
         return new ActivityLiveData(reference);

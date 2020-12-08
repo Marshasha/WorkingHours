@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.workinghours.R;
@@ -82,8 +83,8 @@ public class AddActivityInProject extends BaseActivity {
         }
 
         ActivityViewModel.Factory factory = new ActivityViewModel.Factory(
-                getApplication(), activityId);
-        viewModel = ViewModelProviders.of(this, factory).get(ActivityViewModel.class);
+                getApplication(), activityId, projectId);
+        viewModel = new ViewModelProvider(this, factory).get(ActivityViewModel.class);
         if (isEditMode) {
             viewModel.getActivity().observe(this, activityEntity -> {
                 if (activityEntity != null) {
