@@ -66,7 +66,7 @@
     <string name="title_main_activity">My projects list</string>
     <string name="title_project_delete">Delete project</string>
     <string name="project_delete_msg">Do you want to delete this project?</string>
-    <string name="action_accept">Execute</string>
+    <string name="action_accept">Save</string>
     <string name="project_deleted">Project deleted</string>
     <string name="title_edit_activity">Edit activity</string>
     <string name="prompt_project_name">Name your project</string>
@@ -88,5 +88,6 @@
     <string name="title_activity_delete">Delete activity</string>
     <string name="activity_delete_msg">Do you like to delete this activity?</string>
     <string name="activity_deleted">Activity deleted</string>
+    <string name="title_activity_edit_project">Edit project name</string>
 
 </resources>

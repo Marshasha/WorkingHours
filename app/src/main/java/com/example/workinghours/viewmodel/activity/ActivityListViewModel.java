@@ -1,6 +1,7 @@
 package com.example.workinghours.viewmodel.activity;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -23,6 +24,8 @@ public class ActivityListViewModel extends AndroidViewModel {
 
     private ActivityRepository repository;
 
+    private Application application;
+
     // MediatorLiveData can observe other LiveData objects and react on their emissions.
     private final MediatorLiveData<List<ActivityEntity>> observableProjectActivities;
 
@@ -30,12 +33,15 @@ public class ActivityListViewModel extends AndroidViewModel {
                                 final String projectId,
                                 ActivityRepository activityRepository) {
         super(application);
+        this.application=application;
 
         repository = activityRepository;
 
         observableProjectActivities = new MediatorLiveData<>();
         // set by default null, until we get data from the database.
         observableProjectActivities.setValue(null);
+
+        Log.i(TAG, "ProjectId " + projectId);
 
         LiveData<List<ActivityEntity>> projectActivities = repository.getByProject(projectId);
 

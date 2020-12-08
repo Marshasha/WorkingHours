@@ -21,7 +21,7 @@ public class ActivityLiveData extends LiveData<ActivityEntity> {
 
     public ActivityLiveData(DatabaseReference ref) {
         reference = ref;
-        projectId = ref.getParent().getParent().getKey();
+        projectId = ref.getParent().getParent().child("projects").getKey();
     }
 
     @Override
